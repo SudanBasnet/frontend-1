@@ -1,5 +1,5 @@
-const LoginPage = () => {
-  return <div className="text-4xl font-bold">LoginPage</div>;
-};
+import LoginForm from "@/components/LoginForm/LoginForm";
 
-export default LoginPage;
+export default function LoginPage() {
+  return <LoginForm />;
+}
