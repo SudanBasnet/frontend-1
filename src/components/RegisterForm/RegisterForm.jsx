@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function LoginForm() {
+export default function RegisterForm() {
   return (
     <section className="flex min-h-screen items-center justify-center bg-zinc-950 px-4 py-12">
       <div className="w-full max-w-md rounded-3xl border border-white/10 bg-zinc-900 p-8 shadow-2xl shadow-black/40">
@@ -10,15 +10,34 @@ export default function LoginForm() {
           </div>
 
           <h1 className="text-3xl font-bold tracking-tight text-white">
-            Welcome back
+            Create an account
           </h1>
 
           <p className="mt-2 text-sm text-zinc-400">
-            Enter your details to access your account.
+            Enter your details to get started.
           </p>
         </div>
 
         <form className="space-y-5">
+          <div>
+            <label
+              htmlFor="name"
+              className="mb-2 block text-sm font-medium text-zinc-200"
+            >
+              Full name
+            </label>
+
+            <input
+              id="name"
+              name="name"
+              type="text"
+              placeholder="Your full name"
+              autoComplete="name"
+              required
+              className="w-full rounded-xl border border-white/10 bg-zinc-950 px-4 py-3 text-white outline-none transition placeholder:text-zinc-600 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
+            />
+          </div>
+
           <div>
             <label
               htmlFor="email"
@@ -39,57 +58,39 @@ export default function LoginForm() {
           </div>
 
           <div>
-            <div className="mb-2 flex items-center justify-between">
-              <label
-                htmlFor="password"
-                className="text-sm font-medium text-zinc-200"
-              >
-                Password
-              </label>
-
-              <button
-                type="button"
-                className="text-sm font-medium text-blue-400 transition hover:text-blue-300"
-              >
-                Forgot password?
-              </button>
-            </div>
+            <label
+              htmlFor="password"
+              className="mb-2 block text-sm font-medium text-zinc-200"
+            >
+              Password
+            </label>
 
             <input
               id="password"
               name="password"
               type="password"
-              placeholder="Enter your password"
-              autoComplete="current-password"
+              placeholder="Create a password"
+              autoComplete="new-password"
               required
               className="w-full rounded-xl border border-white/10 bg-zinc-950 px-4 py-3 text-white outline-none transition placeholder:text-zinc-600 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
             />
           </div>
 
-          <label className="flex w-fit cursor-pointer items-center gap-2 text-sm text-zinc-400">
-            <input
-              name="remember"
-              type="checkbox"
-              className="size-4 rounded border-zinc-700 accent-blue-600"
-            />
-            Remember me
-          </label>
-
           <button
             type="button"
             className="w-full rounded-xl bg-blue-600 px-4 py-3 font-semibold text-white transition hover:bg-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/30"
           >
-            Sign in
+            Create account
           </button>
         </form>
 
         <p className="mt-8 text-center text-sm text-zinc-400">
-          Don&apos;t have an account?{" "}
+          Already have an account?{" "}
           <Link
-            href="/register"
+            href="/login"
             className="font-semibold text-blue-400 transition hover:text-blue-300"
           >
-            Create an account
+            Sign in
           </Link>
         </p>
       </div>

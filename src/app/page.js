@@ -29,6 +29,12 @@ export default function HomePage() {
         >
           Login Page
         </Link>
+        <Link
+          href="/register"
+          className="inline-block rounded bg-emerald-600 px-4 py-2 text-white"
+        >
+          Register Page
+        </Link>
       </div>
     </main>
   );
