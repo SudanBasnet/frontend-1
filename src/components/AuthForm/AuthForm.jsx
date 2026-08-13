@@ -13,7 +13,7 @@ export default function AuthForm({
   children,
 }) {
   return (
-    <section className="flex min-h-screen items-center justify-center bg-zinc-950 px-4 py-12">
+    <section className="flex flex-1 items-center justify-center bg-zinc-950 px-4 py-12">
       <div className="w-full max-w-md rounded-3xl border border-white/10 bg-zinc-900 p-8 shadow-2xl shadow-black/40">
         <div className="mb-8 text-center">
           <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-2xl bg-blue-600 text-xl font-bold text-white">

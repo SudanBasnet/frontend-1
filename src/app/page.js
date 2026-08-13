@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <main className="">
+    <section>
       <h1 className="text-4xl font-bold">Landing Page</h1>
       <div className="flex justify-center gap-4 ">
         <Link
@@ -36,6 +36,6 @@ export default function HomePage() {
           Register Page
         </Link>
       </div>
-    </main>
+    </section>
   );
 }
