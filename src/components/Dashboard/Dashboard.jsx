@@ -1,11 +1,5 @@
 import Link from "next/link";
-
-const dashboardNavigation = [
-  { href: "/dashboard", label: "Overview", active: true },
-  { href: "/blogs", label: "Blogs" },
-  { href: "/portfolio", label: "Portfolio" },
-  { href: "/contact", label: "Contact" },
-];
+import DashboardSidebar from "./DashboardSidebar";
 
 const overviewItems = [
   { label: "Published posts", accent: "bg-blue-500" },
@@ -36,50 +30,7 @@ export default function Dashboard() {
   return (
     <section className="flex flex-1 bg-zinc-950 px-4 py-8 text-zinc-100 sm:px-6 lg:px-8">
       <div className="mx-auto grid w-full max-w-7xl gap-6 lg:grid-cols-[240px_minmax(0,1fr)]">
-        <aside className="h-fit rounded-3xl border border-white/10 bg-zinc-900 p-4 shadow-2xl shadow-black/20 lg:sticky lg:top-6">
-          <div className="border-b border-white/10 px-3 pb-5 pt-2">
-            <div className="flex items-center gap-3">
-              <div className="flex size-11 items-center justify-center rounded-2xl bg-blue-600 text-lg font-bold text-white">
-                B
-              </div>
-              <div>
-                <p className="font-semibold text-white">Your workspace</p>
-                <p className="text-xs text-zinc-500">Content dashboard</p>
-              </div>
-            </div>
-          </div>
-
-          <nav className="py-5" aria-label="Dashboard navigation">
-            <p className="px-3 text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">
-              Menu
-            </p>
-            <ul className="mt-3 space-y-1">
-              {dashboardNavigation.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    aria-current={item.active ? "page" : undefined}
-                    className={`flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium transition ${
-                      item.active
-                        ? "bg-blue-600 text-white"
-                        : "text-zinc-400 hover:bg-white/5 hover:text-white"
-                    }`}
-                  >
-                    {item.label}
-                    <span aria-hidden="true">&rarr;</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <div className="rounded-2xl border border-blue-500/20 bg-blue-500/10 p-4">
-            <p className="text-sm font-semibold text-blue-100">UI preview</p>
-            <p className="mt-1 text-xs leading-5 text-blue-200/70">
-              Authentication and live dashboard data can be connected next.
-            </p>
-          </div>
-        </aside>
+        <DashboardSidebar />
 
         <div className="min-w-0">
           <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
@@ -93,15 +44,13 @@ export default function Dashboard() {
               </p>
             </div>
 
-            <div className="flex w-fit items-center gap-3 rounded-2xl border border-white/10 bg-zinc-900 px-4 py-3">
-              <div className="flex size-9 items-center justify-center rounded-full bg-zinc-800 text-sm font-semibold text-zinc-300">
-                U
-              </div>
-              <div>
-                <p className="text-sm font-medium text-white">Account</p>
-                <p className="text-xs text-zinc-500">Profile details pending</p>
-              </div>
-            </div>
+            <Link
+              href="/blogs"
+              className="inline-flex w-fit items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-950/30 transition hover:bg-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+            >
+              Browse blogs
+              <span aria-hidden="true">&rarr;</span>
+            </Link>
           </header>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
