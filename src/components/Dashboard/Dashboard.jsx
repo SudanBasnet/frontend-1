@@ -1,5 +1,4 @@
 import Link from "next/link";
-import DashboardSidebar from "./DashboardSidebar";
 
 const overviewItems = [
   { label: "Published posts", accent: "bg-blue-500" },
@@ -29,9 +28,7 @@ const quickLinks = [
 export default function Dashboard() {
   return (
     <section className="flex flex-1 bg-zinc-950 px-4 py-8 text-zinc-100 sm:px-6 lg:px-8">
-      <div className="mx-auto grid w-full max-w-7xl gap-6 lg:grid-cols-[240px_minmax(0,1fr)]">
-        <DashboardSidebar />
-
+      <div className="mx-auto w-full max-w-6xl">
         <div className="min-w-0">
           <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
