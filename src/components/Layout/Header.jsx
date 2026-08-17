@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ThemeSwitcher from "@/components/Layout/ThemeSwitcher";
 
 const navigationLinks = [
   { href: "/", label: "Home" },
@@ -35,6 +36,7 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <ThemeSwitcher />
           <Link
             href="/login"
             className="rounded-lg px-3 py-2 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-100 dark:text-zinc-200 dark:hover:bg-zinc-800"

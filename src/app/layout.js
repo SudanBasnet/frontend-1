@@ -3,6 +3,23 @@ import Footer from "@/components/Layout/Footer";
 import Header from "@/components/Layout/Header";
 import "./globals.css";
 
+const themeScript = `
+  (function () {
+    try {
+      var savedTheme = localStorage.getItem("frontend-one-theme") || "system";
+      var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      var useDark = savedTheme === "dark" || (savedTheme === "system" && prefersDark);
+      var root = document.documentElement;
+
+      root.classList.toggle("dark", useDark);
+      root.dataset.theme = savedTheme;
+      root.style.colorScheme = useDark ? "dark" : "light";
+    } catch (error) {
+      document.documentElement.dataset.theme = "system";
+    }
+  })();
+`;
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -23,7 +40,11 @@ export default function RootLayout({ children }) {
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body className="flex min-h-full flex-col">
         <Header />
         <main className="flex flex-1 flex-col">{children}</main>
