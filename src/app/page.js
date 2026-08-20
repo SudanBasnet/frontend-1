@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { blogPosts } from "@/data/blogPosts";
 
 const stats = [
   { value: "12+", label: "Projects completed" },
@@ -61,32 +62,7 @@ const projects = [
   },
 ];
 
-const posts = [
-  {
-    date: "Aug 12, 2026",
-    readTime: "6 min read",
-    title: "What I learned building my first full-stack dashboard",
-    excerpt:
-      "A practical reflection on component structure, API boundaries, and the small decisions that improved the final product.",
-    tag: "Development",
-  },
-  {
-    date: "Aug 04, 2026",
-    readTime: "4 min read",
-    title: "Making a simple interface feel more intentional",
-    excerpt:
-      "Spacing, hierarchy, colour, and feedback are often all a design needs to move from functional to polished.",
-    tag: "Design",
-  },
-  {
-    date: "Jul 28, 2026",
-    readTime: "8 min read",
-    title: "A beginner-friendly way to trace an API request",
-    excerpt:
-      "Follow one request from the button click to the database and back without getting lost between application layers.",
-    tag: "Learning",
-  },
-];
+const posts = blogPosts.slice(0, 3);
 
 const ArrowIcon = ({ className = "h-4 w-4" }) => (
   <svg
@@ -344,18 +320,18 @@ export default function HomePage() {
 
         <div className="mt-10 grid gap-5 md:grid-cols-3">
           {posts.map((post) => (
-            <article key={post.title} className="group flex flex-col rounded-2xl border border-zinc-200 bg-zinc-50 p-6 transition hover:-translate-y-1 hover:border-blue-300 hover:shadow-xl hover:shadow-zinc-900/5 dark:border-zinc-800 dark:bg-zinc-900/60 dark:hover:border-blue-800">
+            <Link href={`/blogs/${post.slug}`} key={post.title} className="group flex flex-col rounded-2xl border border-zinc-200 bg-zinc-50 p-6 transition hover:-translate-y-1 hover:border-blue-300 hover:shadow-xl hover:shadow-zinc-900/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 dark:border-zinc-800 dark:bg-zinc-900/60 dark:hover:border-blue-800 dark:focus-visible:ring-offset-zinc-950">
               <div className="flex items-center justify-between gap-3 text-[11px] font-semibold text-zinc-500 dark:text-zinc-400">
-                <span className="rounded-full bg-blue-100 px-2.5 py-1 text-blue-700 dark:bg-blue-950 dark:text-blue-300">{post.tag}</span>
+                <span className="rounded-full bg-blue-100 px-2.5 py-1 text-blue-700 dark:bg-blue-950 dark:text-blue-300">{post.category}</span>
                 <span>{post.readTime}</span>
               </div>
               <h3 className="mt-6 text-xl font-bold leading-snug transition group-hover:text-blue-600 dark:group-hover:text-blue-400">{post.title}</h3>
               <p className="mt-3 flex-1 text-sm leading-6 text-zinc-600 dark:text-zinc-400">{post.excerpt}</p>
               <div className="mt-6 flex items-center justify-between border-t border-zinc-200 pt-4 dark:border-zinc-800">
-                <span className="text-xs text-zinc-500">{post.date}</span>
+                <time dateTime={post.isoDate} className="text-xs text-zinc-500">{post.date}</time>
                 <span className="text-blue-600 transition group-hover:translate-x-1 dark:text-blue-400"><ArrowIcon /></span>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
       </section>
