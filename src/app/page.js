@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { blogPosts } from "@/data/blogPosts";
+import { portfolioProjects } from "@/data/projects";
 
 const stats = [
   { value: "12+", label: "Projects completed" },
@@ -29,38 +30,7 @@ const services = [
   },
 ];
 
-const projects = [
-  {
-    title: "ClearQueue",
-    category: "Full-stack platform",
-    description:
-      "A modern support-ticket workspace that helps teams organise, assign, and resolve requests.",
-    stack: ["React", "Node.js", "MongoDB"],
-    gradient: "from-blue-500 via-indigo-500 to-violet-600",
-    metric: "48",
-    metricLabel: "open tickets",
-  },
-  {
-    title: "Learning Library",
-    category: "Web application",
-    description:
-      "A digital library experience for discovering titles, managing loans, and tracking reading.",
-    stack: ["Next.js", "Express", "Redux"],
-    gradient: "from-emerald-400 via-teal-500 to-cyan-600",
-    metric: "1.2k",
-    metricLabel: "books explored",
-  },
-  {
-    title: "Finance Flow",
-    category: "Dashboard",
-    description:
-      "A clear personal-finance dashboard for recording expenses and understanding monthly habits.",
-    stack: ["React", "Bootstrap", "API"],
-    gradient: "from-orange-400 via-rose-500 to-pink-600",
-    metric: "$4.8k",
-    metricLabel: "monthly tracked",
-  },
-];
+const projects = portfolioProjects.slice(0, 3);
 
 const posts = blogPosts.slice(0, 3);
 
@@ -275,14 +245,14 @@ export default function HomePage() {
           </div>
 
           <div className="mt-10 grid gap-5 lg:grid-cols-3">
-            {projects.map((project, index) => (
-              <article key={project.title} className="group overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900">
+            {projects.map((project) => (
+              <Link href={`/portfolio/${project.slug}`} key={project.title} className="group overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900 transition hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950">
                 <div className={`relative h-52 overflow-hidden bg-gradient-to-br ${project.gradient} p-5`}>
                   <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full border border-white/20" />
                   <div className="absolute -right-2 top-8 h-24 w-24 rounded-full border border-white/20" />
                   <div className="relative flex h-full flex-col justify-between rounded-xl border border-white/20 bg-black/15 p-5 backdrop-blur-sm transition duration-300 group-hover:-translate-y-1 group-hover:scale-[1.02]">
                     <div className="flex items-center justify-between">
-                      <span className="rounded-full bg-white/20 px-2.5 py-1 text-[10px] font-bold backdrop-blur">0{index + 1}</span>
+                      <span className="rounded-full bg-white/20 px-2.5 py-1 text-[10px] font-bold backdrop-blur">{project.number}</span>
                       <div className="flex gap-1"><span className="h-2 w-2 rounded-full bg-white/50" /><span className="h-2 w-2 rounded-full bg-white/25" /></div>
                     </div>
                     <div>
@@ -301,7 +271,7 @@ export default function HomePage() {
                     ))}
                   </div>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
         </div>
