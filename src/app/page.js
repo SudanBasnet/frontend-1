@@ -30,6 +30,33 @@ const services = [
   },
 ];
 
+const currentFocus = [
+  {
+    label: "Building",
+    title: "Reusable product patterns",
+    description:
+      "Refining a small library of accessible components that make new ideas faster to ship.",
+    detail: "Design systems",
+    accent: "bg-blue-500",
+  },
+  {
+    label: "Learning",
+    title: "Motion with restraint",
+    description:
+      "Studying how thoughtful transitions can add clarity without getting in the user’s way.",
+    detail: "Interaction design",
+    accent: "bg-violet-500",
+  },
+  {
+    label: "Exploring",
+    title: "More expressive frontends",
+    description:
+      "Experimenting with visual storytelling, creative coding, and experiences beyond the usual grid.",
+    detail: "Creative development",
+    accent: "bg-emerald-500",
+  },
+];
+
 const projects = portfolioProjects.slice(0, 3);
 
 const posts = blogPosts.slice(0, 3);
@@ -226,6 +253,62 @@ export default function HomePage() {
                 <span className="hidden rounded-full border border-zinc-200 p-2 text-zinc-400 transition group-hover:border-blue-600 group-hover:bg-blue-600 group-hover:text-white sm:block dark:border-zinc-700">
                   <ArrowIcon />
                 </span>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/40">
+        <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
+          <div className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-zinc-600 shadow-sm dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">
+                <span className="relative flex h-2 w-2" aria-hidden="true">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 motion-safe:animate-ping" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                </span>
+                Now
+              </div>
+              <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl">
+                A snapshot of what has my attention.
+              </h2>
+            </div>
+            <p className="max-w-xl text-sm leading-7 text-zinc-600 lg:justify-self-end dark:text-zinc-300">
+              Good work comes from staying curious. Here&apos;s what I&apos;m
+              making, studying, and experimenting with between projects.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-4 md:grid-cols-3">
+            {currentFocus.map((item, index) => (
+              <article
+                key={item.label}
+                className="group relative overflow-hidden rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-zinc-900/5 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-zinc-700"
+              >
+                <div
+                  className={`absolute inset-x-0 top-0 h-1 origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100 ${item.accent}`}
+                />
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-400">
+                      {item.label}
+                    </p>
+                    <h3 className="mt-3 text-xl font-bold tracking-tight">
+                      {item.title}
+                    </h3>
+                  </div>
+                  <span className="font-mono text-xs text-zinc-300 dark:text-zinc-700">
+                    0{index + 1}
+                  </span>
+                </div>
+                <p className="mt-4 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+                  {item.description}
+                </p>
+                <div className="mt-7 flex items-center gap-2 border-t border-zinc-100 pt-4 text-xs font-semibold text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
+                  <span className={`h-1.5 w-1.5 rounded-full ${item.accent}`} />
+                  {item.detail}
+                </div>
               </article>
             ))}
           </div>
