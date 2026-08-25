@@ -1,102 +1,100 @@
 # Frontend-1
 
-Frontend-1 is a frontend-only Next.js learning project. It currently uses the App Router, JavaScript, and Tailwind CSS. The initial pages and navigation are in place; backend integration, authentication logic, and real data have not been added yet.
+Frontend-1 is a Next.js App Router site integrated with the sibling `Backend-1`
+Express API. It includes a portfolio and article experience plus real
+authentication, author-owned blog management, and Cloudinary gallery uploads.
 
-## Tech stack
+## Stack
 
-- Next.js 16.3
-- React 19.2
-- JavaScript
+- Next.js 16.3 and React 19.2
 - Tailwind CSS 4
-- ESLint 9
-- npm
+- Backend-1: Express, MongoDB/Mongoose, JWT, Multer, and Cloudinary
 
-## Requirements
+## How the integration works
+
+The browser calls same-origin Route Handlers under `/api`. Those handlers call
+Backend-1 using the server-only `BACKEND_API_URL` value. Access and refresh JWTs
+are stored in `HttpOnly`, `SameSite=Lax` cookies, and expired access tokens are
+rotated through Backend-1 before a protected request is retried.
+
+This arrangement means Backend-1 does not need browser-facing CORS configuration
+for this frontend, and JWTs are not exposed to client JavaScript or local storage.
+
+## Local setup
+
+Requirements:
 
 - Node.js 20.9 or newer
-- npm
+- MongoDB configuration and JWT secrets in `../Backend-1/.env`
+- Cloudinary credentials in `../Backend-1/.env` to use uploads
 
-## Getting started
-
-Install the dependencies:
+Install dependencies in both projects:
 
 ```bash
+cd ../Backend-1
+npm install
+
+cd ../frontend-1
 npm install
 ```
 
-Start the development server:
+Copy the frontend environment example and change the URL if Backend-1 uses a
+different host or port:
+
+```bash
+cp .env.example .env.local
+```
+
+Run Backend-1 in one terminal:
+
+```bash
+cd ../Backend-1
+npm run dev
+```
+
+Run Frontend-1 in another terminal:
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3000](http://localhost:3000).
 
-## Current routes
+## Connected features
 
-Next.js creates routes from folders inside `src/app`. Each public route contains a `page.js` file.
+| Frontend surface | Backend-1 endpoint |
+| --- | --- |
+| Register | `POST /api/v1/test1/register` |
+| Sign in | `POST /api/v1/test1/login` |
+| Session check | `GET /api/v1/test1/token` |
+| Automatic token rotation | `POST /api/v1/test1/refresh` |
+| Public live posts | `GET /api/v1/blogposts` and `GET /api/v1/blogposts/:id` |
+| Dashboard post management | `GET /mine`, `POST`, `PATCH`, and `DELETE` under `/api/v1/blogposts` |
+| Gallery upload | `POST /api/v1/gallery/upload` |
 
-| File | URL | Current page |
-| --- | --- | --- |
-| `src/app/page.js` | `/` | Landing page and navigation |
-| `src/app/about/page.js` | `/about` | About page |
-| `src/app/contact/page.js` | `/contact` | Contact page |
-| `src/app/blogs/page.js` | `/blogs` | Blog page |
-| `src/app/login/page.js` | `/login` | Login page placeholder |
+Signing out clears the frontend token cookies. Backend-1 does not currently
+provide a logout/revocation endpoint, so the refresh token remains valid on the
+server until it is rotated, replaced by another login, or expires.
 
-## Project structure
+## Main routes
 
-```text
-Frontend-1/
-├── public/                 # Static assets
-├── src/
-│   └── app/
-│       ├── about/
-│       │   └── page.js
-│       ├── blogs/
-│       │   └── page.js
-│       ├── contact/
-│       │   └── page.js
-│       ├── login/
-│       │   └── page.js
-│       ├── globals.css     # Global styles and Tailwind import
-│       ├── layout.js       # Root layout shared by every page
-│       └── page.js         # Landing page
-├── next.config.mjs
-└── package.json
-```
+| URL | Purpose |
+| --- | --- |
+| `/` | Landing page |
+| `/about` | About page |
+| `/portfolio` | Portfolio index and case studies |
+| `/blogs` | Curated articles and live Backend-1 published posts |
+| `/blogs/community/:id` | One live Backend-1 article |
+| `/contact` | Contact page |
+| `/login` | Sign in |
+| `/register` | Create an account |
+| `/dashboard` | Authenticated blog and gallery workspace |
 
-## Adding a route
-
-Create a folder inside `src/app` and add a `page.js` file. For example, `src/app/services/page.js` creates the `/services` route:
-
-```jsx
-export default function ServicesPage() {
-  return <h1 className="text-4xl font-bold">Services</h1>;
-}
-```
-
-Use Next.js `Link` to navigate without reloading the whole page:
-
-```jsx
-import Link from "next/link";
-
-<Link href="/services">Services</Link>;
-```
-
-## Available commands
+## Commands
 
 ```bash
-npm run dev      # Start the development server
-npm run lint     # Check the code with ESLint
-npm run build    # Create a production build
-npm run start    # Run the production build
+npm run dev
+npm run lint
+npm run build -- --webpack
+npm run start
 ```
-
-## Current status
-
-- App Router configured
-- Landing, About, Contact, Blogs, and Login routes created
-- Navigation links added to the landing page
-- Tailwind CSS available for styling
-- Frontend only; no backend connection yet

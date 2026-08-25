@@ -1,3 +1,5 @@
+"use client";
+
 import AuthForm from "@/components/AuthForm/AuthForm";
 
 const loginFields = [
@@ -16,12 +18,7 @@ const loginFields = [
     type: "password",
     label: "Password",
     labelAction: (
-      <button
-        type="button"
-        className="text-sm font-medium text-blue-400 transition hover:text-blue-300"
-      >
-        Forgot password?
-      </button>
+      <span className="text-xs text-zinc-600">Password reset unavailable</span>
     ),
     placeholder: "Enter your password",
     autoComplete: "current-password",
@@ -36,6 +33,7 @@ export default function LoginForm() {
       description="Enter your details to access your account."
       fields={loginFields}
       submitLabel="Sign in"
+      endpoint="/api/auth/login"
       footerText="Don't have an account?"
       footerLink={{ href: "/register", label: "Create an account" }}
     >

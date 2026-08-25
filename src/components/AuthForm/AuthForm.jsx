@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const inputClassName =
   "w-full rounded-xl border border-white/10 bg-zinc-950 px-4 py-3 text-white outline-none transition placeholder:text-zinc-600 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10";
@@ -10,8 +14,43 @@ export default function AuthForm({
   submitLabel,
   footerText,
   footerLink,
+  endpoint,
   children,
 }) {
+  const router = useRouter();
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    setError("");
+    setIsSubmitting(true);
+
+    const values = Object.fromEntries(new FormData(event.currentTarget));
+    values.remember = values.remember === "on";
+
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message || "Unable to complete your request.");
+        return;
+      }
+
+      router.replace("/dashboard");
+      router.refresh();
+    } catch {
+      setError("Unable to connect to the application server.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
   return (
     <section className="flex flex-1 items-center justify-center bg-zinc-950 px-4 py-12">
       <div className="w-full max-w-md rounded-3xl border border-white/10 bg-zinc-900 p-8 shadow-2xl shadow-black/40">
@@ -27,7 +66,7 @@ export default function AuthForm({
           <p className="mt-2 text-sm text-zinc-400">{description}</p>
         </div>
 
-        <form className="space-y-5">
+        <form className="space-y-5" onSubmit={handleSubmit}>
           {fields.map(({ label, labelAction, ...inputProps }) => (
             <div key={inputProps.name}>
               <div className="mb-2 flex items-center justify-between">
@@ -47,11 +86,21 @@ export default function AuthForm({
 
           {children}
 
+          {error ? (
+            <p
+              role="alert"
+              className="rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm leading-6 text-red-300"
+            >
+              {error}
+            </p>
+          ) : null}
+
           <button
-            type="button"
-            className="w-full rounded-xl bg-blue-600 px-4 py-3 font-semibold text-white transition hover:bg-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/30"
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full rounded-xl bg-blue-600 px-4 py-3 font-semibold text-white transition hover:bg-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/30 disabled:cursor-wait disabled:opacity-60"
           >
-            {submitLabel}
+            {isSubmitting ? "Please wait…" : submitLabel}
           </button>
         </form>
 

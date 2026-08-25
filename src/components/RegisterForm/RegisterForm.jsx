@@ -1,3 +1,5 @@
+"use client";
+
 import AuthForm from "@/components/AuthForm/AuthForm";
 
 const registerFields = [
@@ -37,6 +39,7 @@ export default function RegisterForm() {
       description="Enter your details to get started."
       fields={registerFields}
       submitLabel="Create account"
+      endpoint="/api/auth/register"
       footerText="Already have an account?"
       footerLink={{ href: "/login", label: "Sign in" }}
     />

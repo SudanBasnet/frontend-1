@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { blogPosts } from "@/data/blogPosts";
+import CommunityPosts from "@/components/Blogs/CommunityPosts";
 
 const accentStyles = {
   blue: "from-blue-600 to-indigo-500 text-blue-100",
@@ -148,6 +149,8 @@ export default function BlogPage() {
           </div>
         </div>
       </section>
+
+      <CommunityPosts />
 
       <section className="px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
         <div className="relative mx-auto max-w-6xl overflow-hidden rounded-3xl bg-zinc-950 px-6 py-12 text-white sm:px-10 sm:py-14 dark:bg-black">
