@@ -33,6 +33,9 @@ export default function Dashboard() {
   const [error, setError] = useState("");
   const [upload, setUpload] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [query, setQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [hasCopiedImageUrl, setHasCopiedImageUrl] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -94,6 +97,25 @@ export default function Dashboard() {
       { label: "Unique tags", value: tags, accent: "bg-amber-500" },
     ];
   }, [posts]);
+
+  const filteredPosts = useMemo(() => {
+    const normalizedQuery = query.trim().toLowerCase();
+
+    return posts.filter((post) => {
+      const matchesStatus =
+        statusFilter === "all" || post.status === statusFilter;
+      const searchableText = [
+        post.title,
+        post.content,
+        ...(post.tags || []),
+      ]
+        .join(" ")
+        .toLowerCase();
+
+      return matchesStatus &&
+        (!normalizedQuery || searchableText.includes(normalizedQuery));
+    });
+  }, [posts, query, statusFilter]);
 
   function updateEditor(event) {
     setEditor((current) => ({
@@ -192,6 +214,7 @@ export default function Dashboard() {
     const form = event.currentTarget;
     setIsUploading(true);
     setUpload(null);
+    setHasCopiedImageUrl(false);
     setError("");
 
     try {
@@ -211,6 +234,15 @@ export default function Dashboard() {
       setError(uploadError.message);
     } finally {
       setIsUploading(false);
+    }
+  }
+
+  async function copyImageUrl() {
+    try {
+      await navigator.clipboard.writeText(upload.url);
+      setHasCopiedImageUrl(true);
+    } catch {
+      setError("Unable to copy the image URL. Open the image and copy it manually.");
     }
   }
 
@@ -274,12 +306,39 @@ export default function Dashboard() {
                 <h2 className="text-lg font-semibold text-white">Your posts</h2>
                 <p className="mt-1 text-sm text-zinc-500">Drafts and published entries from Backend-1.</p>
               </div>
-              <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-zinc-400">{posts.length} total</span>
+              <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-zinc-400">
+                {filteredPosts.length} of {posts.length}
+              </span>
             </div>
 
             {posts.length ? (
+              <>
+                <div className="mt-5 grid gap-3 sm:grid-cols-[1fr_150px]">
+                  <label className="sr-only" htmlFor="post-search">Search posts</label>
+                  <input
+                    id="post-search"
+                    type="search"
+                    value={query}
+                    onChange={(event) => setQuery(event.target.value)}
+                    placeholder="Search title, content, or tags…"
+                    className="w-full rounded-xl border border-white/10 bg-zinc-950 px-4 py-2.5 text-sm text-white outline-none placeholder:text-zinc-700 focus:border-blue-500"
+                  />
+                  <label className="sr-only" htmlFor="post-status-filter">Filter by status</label>
+                  <select
+                    id="post-status-filter"
+                    value={statusFilter}
+                    onChange={(event) => setStatusFilter(event.target.value)}
+                    className="rounded-xl border border-white/10 bg-zinc-950 px-4 py-2.5 text-sm text-white outline-none focus:border-blue-500"
+                  >
+                    <option value="all">All statuses</option>
+                    <option value="published">Published</option>
+                    <option value="draft">Drafts</option>
+                  </select>
+                </div>
+
+                {filteredPosts.length ? (
               <div className="mt-6 space-y-3">
-                {posts.map((post) => (
+                {filteredPosts.map((post) => (
                   <div key={post._id} className="rounded-2xl border border-white/10 bg-zinc-950/60 p-4">
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                       <div className="min-w-0">
@@ -304,6 +363,23 @@ export default function Dashboard() {
                   </div>
                 ))}
               </div>
+                ) : (
+                  <div className="mt-6 rounded-2xl border border-dashed border-white/10 bg-zinc-950/40 px-6 py-10 text-center">
+                    <h3 className="font-semibold text-white">No matching posts</h3>
+                    <p className="mt-2 text-sm text-zinc-500">Try a different search or status filter.</p>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setQuery("");
+                        setStatusFilter("all");
+                      }}
+                      className="mt-4 text-sm font-semibold text-blue-400 hover:text-blue-300"
+                    >
+                      Clear filters
+                    </button>
+                  </div>
+                )}
+              </>
             ) : (
               <div className="mt-6 rounded-2xl border border-dashed border-white/10 bg-zinc-950/40 px-6 py-12 text-center">
                 <h3 className="font-semibold text-white">No posts yet</h3>
@@ -318,11 +394,17 @@ export default function Dashboard() {
 
             <form className="mt-6 space-y-4" onSubmit={savePost}>
               <label className="block text-sm font-medium text-zinc-300">
-                Title
+                <span className="flex items-center justify-between gap-3">
+                  Title
+                  <span className="text-xs font-normal text-zinc-600">{editor.title.length}/150</span>
+                </span>
                 <input name="title" value={editor.title} onChange={updateEditor} required maxLength={150} className="mt-2 w-full rounded-xl border border-white/10 bg-zinc-950 px-4 py-3 text-white outline-none focus:border-blue-500" />
               </label>
               <label className="block text-sm font-medium text-zinc-300">
-                Content
+                <span className="flex items-center justify-between gap-3">
+                  Content
+                  <span className="text-xs font-normal text-zinc-600">{editor.content.length} characters</span>
+                </span>
                 <textarea name="content" value={editor.content} onChange={updateEditor} required rows={8} className="mt-2 w-full resize-y rounded-xl border border-white/10 bg-zinc-950 px-4 py-3 text-white outline-none focus:border-blue-500" />
               </label>
               <label className="block text-sm font-medium text-zinc-300">
@@ -370,7 +452,12 @@ export default function Dashboard() {
           {upload ? (
             <div className="mt-5 flex flex-col gap-2 rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200 sm:flex-row sm:items-center sm:justify-between">
               <span>{upload.width} × {upload.height} {upload.format?.toUpperCase()} uploaded</span>
-              <a href={upload.url} target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-4">Open image</a>
+              <div className="flex items-center gap-3">
+                <button type="button" onClick={copyImageUrl} className="font-semibold underline underline-offset-4">
+                  {hasCopiedImageUrl ? "Copied" : "Copy URL"}
+                </button>
+                <a href={upload.url} target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-4">Open image</a>
+              </div>
             </div>
           ) : null}
         </article>

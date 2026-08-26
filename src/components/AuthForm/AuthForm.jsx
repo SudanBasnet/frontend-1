@@ -20,6 +20,14 @@ export default function AuthForm({
   const router = useRouter();
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [visiblePasswords, setVisiblePasswords] = useState({});
+
+  function togglePassword(name) {
+    setVisiblePasswords((current) => ({
+      ...current,
+      [name]: !current[name],
+    }));
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -80,7 +88,28 @@ export default function AuthForm({
                 {labelAction}
               </div>
 
-              <input {...inputProps} className={inputClassName} />
+              <div className="relative">
+                <input
+                  {...inputProps}
+                  type={
+                    inputProps.type === "password" && visiblePasswords[inputProps.name]
+                      ? "text"
+                      : inputProps.type
+                  }
+                  className={`${inputClassName} ${inputProps.type === "password" ? "pr-20" : ""}`}
+                />
+                {inputProps.type === "password" ? (
+                  <button
+                    type="button"
+                    onClick={() => togglePassword(inputProps.name)}
+                    aria-label={`${visiblePasswords[inputProps.name] ? "Hide" : "Show"} ${label.toLowerCase()}`}
+                    aria-pressed={Boolean(visiblePasswords[inputProps.name])}
+                    className="absolute inset-y-0 right-0 px-4 text-xs font-semibold text-zinc-400 transition hover:text-white"
+                  >
+                    {visiblePasswords[inputProps.name] ? "Hide" : "Show"}
+                  </button>
+                ) : null}
+              </div>
             </div>
           ))}
 
