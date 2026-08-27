@@ -1,0 +1,241 @@
+.cluster {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 40;
+  width: 12rem;
+  height: 10.5rem;
+  pointer-events: none;
+}
+
+.list {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  position: absolute;
+  pointer-events: auto;
+  animation: sphere-float 5.5s ease-in-out infinite;
+}
+
+.primary {
+  right: 0;
+  bottom: 0;
+}
+
+.project1 {
+  right: 6.75rem;
+  bottom: 6.25rem;
+  animation-delay: -1.8s;
+}
+
+.project2 {
+  right: 7.25rem;
+  bottom: 1.4rem;
+  animation-delay: -3.6s;
+}
+
+.sphere {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 0.48);
+  border-radius: 999px;
+  color: white;
+  text-decoration: none;
+  box-shadow:
+    inset -0.75rem -0.85rem 1.4rem rgb(22 16 78 / 0.28),
+    inset 0.4rem 0.45rem 0.9rem rgb(255 255 255 / 0.35),
+    0 1rem 2.5rem rgb(37 99 235 / 0.28);
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    filter 220ms ease;
+}
+
+.sphere:hover {
+  transform: scale(1.08);
+  filter: saturate(1.12);
+  box-shadow:
+    inset -0.75rem -0.85rem 1.4rem rgb(22 16 78 / 0.24),
+    inset 0.4rem 0.45rem 0.9rem rgb(255 255 255 / 0.42),
+    0 1.25rem 3rem rgb(37 99 235 / 0.4);
+}
+
+.sphere:focus-visible {
+  outline: 3px solid #60a5fa;
+  outline-offset: 4px;
+}
+
+.primarySphere {
+  width: 6.3rem;
+  height: 6.3rem;
+  flex-direction: column;
+  background:
+    radial-gradient(circle at 30% 22%, rgb(255 255 255 / 0.42), transparent 20%),
+    linear-gradient(145deg, #60a5fa 0%, #2563eb 42%, #6d28d9 100%);
+}
+
+.projectSphere {
+  width: 3.55rem;
+  height: 3.55rem;
+  background:
+    radial-gradient(circle at 30% 22%, rgb(255 255 255 / 0.52), transparent 22%),
+    linear-gradient(145deg, #a78bfa 0%, #7c3aed 48%, #4338ca 100%);
+}
+
+.project2 .projectSphere {
+  background:
+    radial-gradient(circle at 30% 22%, rgb(255 255 255 / 0.5), transparent 22%),
+    linear-gradient(145deg, #34d399 0%, #0d9488 48%, #2563eb 100%);
+}
+
+.shine {
+  position: absolute;
+  inset: 7% 10% auto;
+  z-index: -1;
+  height: 38%;
+  border-radius: 50%;
+  background: linear-gradient(to bottom, rgb(255 255 255 / 0.34), transparent);
+  filter: blur(0.08rem);
+}
+
+.kicker {
+  font-size: 0.56rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.title {
+  margin-top: 0.28rem;
+  font-size: 0.94rem;
+  font-weight: 850;
+  line-height: 1;
+  letter-spacing: -0.025em;
+}
+
+.arrow {
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.38rem;
+  transition: transform 220ms ease;
+}
+
+.primarySphere:hover .arrow {
+  transform: translate(0.12rem, -0.12rem);
+}
+
+.projectNumber {
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+}
+
+.tooltip {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 0.6rem);
+  width: max-content;
+  max-width: 9rem;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 0.5rem;
+  background: rgb(24 24 27 / 0.92);
+  color: white;
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.2;
+  opacity: 0;
+  box-shadow: 0 0.5rem 1.25rem rgb(0 0 0 / 0.18);
+  transform: translate(0.35rem, -50%);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.item:hover .tooltip,
+.item:focus-within .tooltip {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
+@keyframes sphere-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-1deg);
+  }
+
+  50% {
+    transform: translate3d(0, -0.55rem, 0) rotate(1.5deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .cluster {
+    right: max(0.75rem, env(safe-area-inset-right));
+    bottom: max(0.75rem, env(safe-area-inset-bottom));
+    width: 9.25rem;
+    height: 7.75rem;
+  }
+
+  .primarySphere {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  .projectSphere {
+    width: 2.8rem;
+    height: 2.8rem;
+  }
+
+  .project1 {
+    right: 5.1rem;
+    bottom: 4.55rem;
+  }
+
+  .project2 {
+    right: 5.45rem;
+    bottom: 0.85rem;
+  }
+
+  .kicker {
+    font-size: 0.48rem;
+  }
+
+  .title {
+    font-size: 0.78rem;
+  }
+
+  .arrow {
+    width: 0.85rem;
+    height: 0.85rem;
+    margin-top: 0.24rem;
+  }
+
+  .tooltip {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item {
+    animation: none;
+  }
+
+  .sphere,
+  .arrow,
+  .tooltip {
+    transition: none;
+  }
+}

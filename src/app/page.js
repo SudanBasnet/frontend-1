@@ -1,4 +1,5 @@
 import Link from "next/link";
+import FloatingPortfolioSpheres from "@/components/Portfolio/FloatingPortfolioSpheres";
 import { blogPosts } from "@/data/blogPosts";
 import { portfolioProjects } from "@/data/projects";
 
@@ -87,6 +88,8 @@ export const metadata = {
 export default function HomePage() {
   return (
     <div className="overflow-hidden bg-white text-zinc-950 dark:bg-zinc-950 dark:text-white">
+      <FloatingPortfolioSpheres />
+
       <section className="relative isolate border-b border-zinc-200 dark:border-zinc-800">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_15%_15%,rgba(37,99,235,0.14),transparent_28%),radial-gradient(circle_at_85%_70%,rgba(124,58,237,0.12),transparent_30%)] dark:bg-[radial-gradient(circle_at_15%_15%,rgba(59,130,246,0.18),transparent_28%),radial-gradient(circle_at_85%_70%,rgba(139,92,246,0.16),transparent_30%)]" />
         <div className="mx-auto grid w-full max-w-6xl items-center gap-14 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-28">
