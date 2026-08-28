@@ -181,10 +181,16 @@
   }
 }
 
+@media (max-width: 720px) {
+  .cluster {
+    bottom: calc(6.25rem + env(safe-area-inset-bottom));
+  }
+}
+
 @media (max-width: 640px) {
   .cluster {
     right: max(0.75rem, env(safe-area-inset-right));
-    bottom: max(0.75rem, env(safe-area-inset-bottom));
+    bottom: calc(5.85rem + env(safe-area-inset-bottom));
     width: 9.25rem;
     height: 7.75rem;
   }

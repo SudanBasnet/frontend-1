@@ -1,14 +1,7 @@
 import Link from "next/link";
 import ThemeSwitcher from "@/components/Layout/ThemeSwitcher";
 import SessionControls from "@/components/Layout/SessionControls";
-
-const navigationLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/portfolio", label: "Portfolio" },
-  { href: "/blogs", label: "Blogs" },
-  { href: "/contact", label: "Contact" },
-];
+import { navigationLinks } from "@/components/Layout/navigationLinks";
 
 export default function Header() {
   return (

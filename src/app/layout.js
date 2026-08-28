@@ -1,4 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import FloatingNavigation from "@/components/Layout/FloatingNavigation";
 import Footer from "@/components/Layout/Footer";
 import Header from "@/components/Layout/Header";
 import "./globals.css";
@@ -50,6 +51,7 @@ export default function RootLayout({ children }) {
         <Header />
         <main className="flex flex-1 flex-col">{children}</main>
         <Footer />
+        <FloatingNavigation />
       </body>
     </html>
   );
