@@ -2,65 +2,30 @@ import Link from "next/link";
 import FloatingPortfolioSpheres from "@/components/Portfolio/FloatingPortfolioSpheres";
 import { blogPosts } from "@/data/blogPosts";
 import { portfolioProjects } from "@/data/projects";
-
-const stats = [
-  { value: "12+", label: "Projects completed" },
-  { value: "3+", label: "Years learning & building" },
-  { value: "8", label: "Technologies used" },
-  { value: "100%", label: "Built with curiosity" },
-];
-
-const services = [
-  {
-    number: "01",
-    title: "Frontend development",
-    description:
-      "Responsive, accessible interfaces built with React, Next.js, and modern CSS.",
-  },
-  {
-    number: "02",
-    title: "Backend development",
-    description:
-      "Practical REST APIs, authentication flows, and database-backed applications.",
-  },
-  {
-    number: "03",
-    title: "UI implementation",
-    description:
-      "Clean, thoughtful layouts translated from an idea into polished web experiences.",
-  },
-];
-
-const currentFocus = [
-  {
-    label: "Building",
-    title: "Reusable product patterns",
-    description:
-      "Refining a small library of accessible components that make new ideas faster to ship.",
-    detail: "Design systems",
-    accent: "bg-blue-500",
-  },
-  {
-    label: "Learning",
-    title: "Motion with restraint",
-    description:
-      "Studying how thoughtful transitions can add clarity without getting in the user’s way.",
-    detail: "Interaction design",
-    accent: "bg-violet-500",
-  },
-  {
-    label: "Exploring",
-    title: "More expressive frontends",
-    description:
-      "Experimenting with visual storytelling, creative coding, and experiences beyond the usual grid.",
-    detail: "Creative development",
-    accent: "bg-emerald-500",
-  },
-];
+import { siteSeed } from "@/data/siteSeed";
 
 const projects = portfolioProjects.slice(0, 3);
-
 const posts = blogPosts.slice(0, 3);
+const featuredProject = portfolioProjects[0];
+const technologies = new Set(
+  portfolioProjects.flatMap((project) => project.stack),
+);
+const projectYears = portfolioProjects.map((project) => Number(project.year));
+const projectTimeline = `${Math.min(...projectYears)}—${Math.max(...projectYears)}`;
+const projectInitials = projects.map((project) =>
+  project.title
+    .split(" ")
+    .map((word) => word[0])
+    .join("")
+    .slice(0, 2),
+);
+const stats = [
+  { value: String(portfolioProjects.length), label: "Seeded case studies" },
+  { value: String(blogPosts.length), label: "Seeded articles" },
+  { value: String(technologies.size), label: "Technologies represented" },
+  { value: projectTimeline, label: "Project timeline" },
+];
+const { profile, services, currentFocus } = siteSeed;
 
 const ArrowIcon = ({ className = "h-4 w-4" }) => (
   <svg
@@ -96,7 +61,7 @@ export default function HomePage() {
           <div>
             <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-blue-700 dark:border-blue-900 dark:bg-blue-950/60 dark:text-blue-300">
               <span className="h-2 w-2 rounded-full bg-emerald-500" />
-              Available for new projects
+              {profile.availability}
             </div>
 
             <p className="mb-3 text-sm font-bold uppercase tracking-[0.24em] text-blue-600 dark:text-blue-400">
@@ -107,7 +72,7 @@ export default function HomePage() {
               <span className="text-blue-600 dark:text-blue-400"> effortless.</span>
             </h1>
             <p className="mt-7 max-w-xl text-lg leading-8 text-zinc-600 dark:text-zinc-300">
-              Hi, I&apos;m Alex — a full-stack developer turning thoughtful
+              Hi, I&apos;m {profile.firstName} — a full-stack developer turning thoughtful
               ideas into fast, accessible, and human-friendly digital products.
             </p>
 
@@ -129,7 +94,7 @@ export default function HomePage() {
 
             <div className="mt-10 flex items-center gap-4 text-sm text-zinc-500 dark:text-zinc-400">
               <div className="flex -space-x-2" aria-hidden="true">
-                {["AM", "SK", "JR"].map((initials, index) => (
+                {projectInitials.map((initials, index) => (
                   <span
                     key={initials}
                     className={`grid h-9 w-9 place-items-center rounded-full border-2 border-white text-[10px] font-bold text-white dark:border-zinc-950 ${
@@ -141,7 +106,7 @@ export default function HomePage() {
                 ))}
               </div>
               <p>
-                Trusted on <strong className="text-zinc-800 dark:text-zinc-200">12+ projects</strong>
+                Built from <strong className="text-zinc-800 dark:text-zinc-200">{portfolioProjects.length} seeded case studies</strong>
               </p>
             </div>
           </div>
@@ -157,7 +122,7 @@ export default function HomePage() {
                     <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
                   </div>
                   <span className="rounded-full bg-zinc-200 px-3 py-1 text-[10px] font-semibold text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">
-                    overview.app
+                    seeded portfolio
                   </span>
                 </div>
                 <div className="grid grid-cols-[74px_1fr]">
@@ -174,42 +139,45 @@ export default function HomePage() {
                       )}
                     </div>
                   </div>
-                  <div className="p-5 sm:p-7">
-                    <div className="mb-6 flex items-end justify-between gap-4">
-                      <div>
-                        <p className="text-[10px] font-semibold uppercase tracking-wider text-zinc-400">
-                          Project performance
-                        </p>
-                        <p className="mt-1 text-2xl font-black tracking-tight">Good morning, Alex</p>
+                  <div className="flex min-h-80 flex-col justify-between p-5 sm:p-7">
+                    <div>
+                      <div className="flex items-start justify-between gap-4">
+                        <div>
+                          <p className="text-[10px] font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400">
+                            Featured seed · {featuredProject.category}
+                          </p>
+                          <p className="mt-2 text-2xl font-black tracking-tight">{featuredProject.title}</p>
+                        </div>
+                        <span className="rounded-full bg-blue-100 px-2.5 py-1 text-[10px] font-bold text-blue-700 dark:bg-blue-950 dark:text-blue-300">
+                          {featuredProject.year}
+                        </span>
                       </div>
-                      <div className="hidden h-9 w-9 rounded-full bg-gradient-to-br from-blue-500 to-violet-500 sm:block" />
+                      <p className="mt-5 text-sm leading-6 text-zinc-600 dark:text-zinc-300">
+                        {featuredProject.description}
+                      </p>
                     </div>
-                    <div className="grid grid-cols-2 gap-3">
-                      <div className="rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-                        <p className="text-[10px] text-zinc-400">Active projects</p>
-                        <p className="mt-2 text-2xl font-black">08</p>
-                        <p className="mt-1 text-[10px] font-semibold text-emerald-500">+18% this month</p>
+
+                    <div>
+                      <div className="mt-7 grid grid-cols-2 gap-3">
+                        <div className="rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+                          <p className="text-[10px] text-zinc-400">Technologies</p>
+                          <p className="mt-2 text-2xl font-black">{featuredProject.stack.length}</p>
+                        </div>
+                        <div className="rounded-xl bg-blue-600 p-4 text-white">
+                          <p className="text-[10px] text-blue-100">Project outcomes</p>
+                          <p className="mt-2 text-2xl font-black">{featuredProject.outcomes.length}</p>
+                        </div>
                       </div>
-                      <div className="rounded-xl bg-blue-600 p-4 text-white">
-                        <p className="text-[10px] text-blue-100">Tasks completed</p>
-                        <p className="mt-2 text-2xl font-black">124</p>
-                        <p className="mt-1 text-[10px] font-semibold text-blue-100">24 this week</p>
-                      </div>
-                    </div>
-                    <div className="mt-3 rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-                      <div className="mb-5 flex items-center justify-between">
-                        <p className="text-[11px] font-bold">Weekly activity</p>
-                        <span className="text-[9px] text-zinc-400">Last 7 days</span>
-                      </div>
-                      <div className="flex h-24 items-end gap-2" aria-hidden="true">
-                        {[38, 62, 48, 76, 58, 92, 72].map((height, index) => (
-                          <div
-                            key={index}
-                            className={`flex-1 rounded-t-sm ${index === 5 ? "bg-blue-600" : "bg-blue-100 dark:bg-blue-950"}`}
-                            style={{ height: `${height}%` }}
-                          />
+                      <div className="mt-3 flex flex-wrap gap-2 rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+                        {featuredProject.stack.map((item) => (
+                          <span key={item} className="rounded-full bg-zinc-100 px-2.5 py-1 text-[10px] font-semibold text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
+                            {item}
+                          </span>
                         ))}
                       </div>
+                      <Link href={`/portfolio/${featuredProject.slug}`} className="mt-4 inline-flex items-center gap-2 text-xs font-bold text-blue-600 hover:text-blue-500 dark:text-blue-400">
+                        View seeded case study <ArrowIcon />
+                      </Link>
                     </div>
                   </div>
                 </div>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { blogPosts, getBlogPost } from "@/data/blogPosts";
+import { siteSeed } from "@/data/siteSeed";
 
 const ArrowIcon = ({ className = "h-4 w-4" }) => (
   <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className={className}>
@@ -63,10 +64,10 @@ export default async function BlogPostPage({ params }) {
           <p className="mt-7 max-w-3xl text-lg leading-8 text-zinc-600 sm:text-xl dark:text-zinc-300">{post.excerpt}</p>
 
           <div className="mt-10 flex items-center gap-3 border-t border-zinc-200 pt-6 dark:border-zinc-800">
-            <span className="grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-blue-600 to-violet-600 text-xs font-black text-white">AO</span>
+            <span className="grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-blue-600 to-violet-600 text-xs font-black text-white">{siteSeed.profile.initials}</span>
             <div>
-              <p className="text-sm font-bold">Alex O.</p>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400">Full-stack developer</p>
+              <p className="text-sm font-bold">{siteSeed.profile.name}</p>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400">{siteSeed.profile.role}</p>
             </div>
           </div>
         </div>

@@ -109,7 +109,7 @@ export default function ContactPage() {
                   name="name"
                   autoComplete="name"
                   required
-                  placeholder="Alex Morgan"
+                  placeholder="Your full name"
                   className="mt-2 w-full rounded-xl border border-zinc-300 bg-white px-4 py-3 text-sm text-zinc-950 outline-none transition placeholder:text-zinc-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-white dark:placeholder:text-zinc-600"
                 />
               </label>
@@ -121,7 +121,7 @@ export default function ContactPage() {
                   name="email"
                   autoComplete="email"
                   required
-                  placeholder="alex@example.com"
+                  placeholder="you@example.com"
                   className="mt-2 w-full rounded-xl border border-zinc-300 bg-white px-4 py-3 text-sm text-zinc-950 outline-none transition placeholder:text-zinc-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-white dark:placeholder:text-zinc-600"
                 />
               </label>
