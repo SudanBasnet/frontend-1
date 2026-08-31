@@ -1,0 +1,121 @@
+.header {
+  position: relative;
+  z-index: 45;
+  border-bottom: 1px solid rgb(255 255 255 / 0.65);
+  background: rgb(255 255 255 / 0.78);
+  box-shadow:
+    0 0.35rem 0.9rem rgb(15 23 42 / 0.05),
+    inset 0 -1px 0 rgb(161 161 170 / 0.2);
+  backdrop-filter: blur(1.1rem) saturate(1.3);
+}
+
+:global(.dark) .header {
+  border-bottom-color: rgb(255 255 255 / 0.08);
+  background: rgb(9 9 11 / 0.78);
+  box-shadow:
+    0 0.4rem 1rem rgb(0 0 0 / 0.22),
+    inset 0 -1px 0 rgb(255 255 255 / 0.05);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.brandMark {
+  position: relative;
+  display: grid;
+  width: 1.75rem;
+  height: 1.75rem;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 0.4);
+  border-radius: 0.55rem;
+  background: linear-gradient(145deg, #60a5fa, #2563eb 48%, #6d28d9);
+  box-shadow:
+    inset 0.18rem 0.18rem 0.45rem rgb(255 255 255 / 0.35),
+    inset -0.25rem -0.3rem 0.55rem rgb(30 27 75 / 0.3),
+    0 0.35rem 0 #1e40af,
+    0 0.65rem 1rem rgb(37 99 235 / 0.22);
+  color: white;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.58rem;
+  font-weight: 900;
+  transform: perspective(8rem) rotateX(-6deg) rotateY(-10deg);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.brand:hover .brandMark {
+  box-shadow:
+    inset 0.18rem 0.18rem 0.45rem rgb(255 255 255 / 0.4),
+    inset -0.25rem -0.3rem 0.55rem rgb(30 27 75 / 0.28),
+    0 0.18rem 0 #1e40af,
+    0 0.5rem 0.8rem rgb(37 99 235 / 0.25);
+  transform: translateY(0.15rem) perspective(8rem) rotateX(-2deg) rotateY(-5deg);
+}
+
+.navLink {
+  position: relative;
+  display: inline-block;
+  padding-block: 0.35rem;
+}
+
+.navLink::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 0.12rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #2563eb, #7c3aed);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 180ms ease;
+}
+
+.navLink:hover::after,
+.navLink:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.footer {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgb(161 161 170 / 0.22);
+  background:
+    radial-gradient(circle at 10% 120%, rgb(59 130 246 / 0.16), transparent 18rem),
+    rgb(250 250 250 / 0.92);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.7);
+}
+
+:global(.dark) .footer {
+  border-top-color: rgb(255 255 255 / 0.08);
+  background:
+    radial-gradient(circle at 10% 120%, rgb(59 130 246 / 0.12), transparent 18rem),
+    #09090b;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.04);
+}
+
+.footerLink {
+  display: inline-block;
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.footerLink:hover {
+  transform: translateY(-0.12rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brandMark,
+  .navLink::after,
+  .footerLink {
+    transition: none;
+  }
+
+  .brand:hover .brandMark,
+  .footerLink:hover {
+    transform: none;
+  }
+}

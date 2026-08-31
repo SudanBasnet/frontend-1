@@ -1,8 +1,9 @@
 import Link from "next/link";
+import styles from "./LayoutChrome.module.css";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-950">
+    <footer className={styles.footer}>
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 py-6 text-sm text-zinc-600 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8 dark:text-zinc-400">
         <p>
           &copy; {new Date().getFullYear()} Frontend One. All rights reserved.
@@ -13,7 +14,7 @@ export default function Footer() {
             <li>
               <Link
                 href="/about"
-                className="transition hover:text-blue-600 dark:hover:text-blue-400"
+                className={`${styles.footerLink} hover:text-blue-600 dark:hover:text-blue-400`}
               >
                 About
               </Link>
@@ -21,7 +22,7 @@ export default function Footer() {
             <li>
               <Link
                 href="/contact"
-                className="transition hover:text-blue-600 dark:hover:text-blue-400"
+                className={`${styles.footerLink} hover:text-blue-600 dark:hover:text-blue-400`}
               >
                 Contact
               </Link>
@@ -29,7 +30,7 @@ export default function Footer() {
             <li>
               <Link
                 href="/blogs"
-                className="transition hover:text-blue-600 dark:hover:text-blue-400"
+                className={`${styles.footerLink} hover:text-blue-600 dark:hover:text-blue-400`}
               >
                 Blogs
               </Link>

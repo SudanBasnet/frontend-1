@@ -1,8 +1,10 @@
 import Link from "next/link";
+import HomeHeroScene from "@/components/Home/HomeHeroScene";
 import FloatingPortfolioSpheres from "@/components/Portfolio/FloatingPortfolioSpheres";
 import { blogPosts } from "@/data/blogPosts";
 import { portfolioProjects } from "@/data/projects";
 import { siteSeed } from "@/data/siteSeed";
+import styles from "./page.module.css";
 
 const projects = portfolioProjects.slice(0, 3);
 const posts = blogPosts.slice(0, 3);
@@ -52,14 +54,13 @@ export const metadata = {
 
 export default function HomePage() {
   return (
-    <div className="overflow-hidden bg-white text-zinc-950 dark:bg-zinc-950 dark:text-white">
+    <div className={`${styles.page} overflow-hidden text-zinc-950 dark:text-white`}>
       <FloatingPortfolioSpheres />
 
-      <section className="relative isolate border-b border-zinc-200 dark:border-zinc-800">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_15%_15%,rgba(37,99,235,0.14),transparent_28%),radial-gradient(circle_at_85%_70%,rgba(124,58,237,0.12),transparent_30%)] dark:bg-[radial-gradient(circle_at_15%_15%,rgba(59,130,246,0.18),transparent_28%),radial-gradient(circle_at_85%_70%,rgba(139,92,246,0.16),transparent_30%)]" />
-        <div className="mx-auto grid w-full max-w-6xl items-center gap-14 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-28">
-          <div>
-            <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-blue-700 dark:border-blue-900 dark:bg-blue-950/60 dark:text-blue-300">
+      <section className={styles.hero}>
+        <div className={`${styles.heroInner} mx-auto grid w-full max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:min-h-[760px] lg:grid-cols-[0.92fr_1.08fr] lg:gap-8 lg:px-8 lg:py-24`}>
+          <div className={styles.heroCopy}>
+            <div className={`${styles.availability} mb-7 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/80 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-blue-700 backdrop-blur dark:border-blue-900 dark:bg-blue-950/60 dark:text-blue-300`}>
               <span className="h-2 w-2 rounded-full bg-emerald-500" />
               {profile.availability}
             </div>
@@ -67,9 +68,9 @@ export default function HomePage() {
             <p className="mb-3 text-sm font-bold uppercase tracking-[0.24em] text-blue-600 dark:text-blue-400">
               Developer · Designer · Problem solver
             </p>
-            <h1 className="max-w-3xl text-5xl font-black leading-[0.98] tracking-[-0.055em] text-zinc-950 sm:text-6xl lg:text-7xl dark:text-white">
+            <h1 className={`${styles.heroTitle} max-w-3xl text-5xl font-black leading-[0.96] tracking-[-0.06em] text-zinc-950 sm:text-6xl lg:text-7xl dark:text-white`}>
               I build useful web experiences that feel
-              <span className="text-blue-600 dark:text-blue-400"> effortless.</span>
+              <span> effortless.</span>
             </h1>
             <p className="mt-7 max-w-xl text-lg leading-8 text-zinc-600 dark:text-zinc-300">
               Hi, I&apos;m {profile.firstName} — a full-stack developer turning thoughtful
@@ -79,14 +80,14 @@ export default function HomePage() {
             <div className="mt-9 flex flex-wrap gap-3">
               <Link
                 href="/portfolio"
-                className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-zinc-950"
+                className={`${styles.primaryButton} inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-zinc-950`}
               >
                 Explore my work
                 <ArrowIcon />
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center rounded-xl border border-zinc-300 bg-white/70 px-5 py-3 text-sm font-bold text-zinc-800 transition hover:-translate-y-0.5 hover:border-zinc-400 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 dark:border-zinc-700 dark:bg-zinc-900/70 dark:text-zinc-100 dark:hover:border-zinc-600 dark:hover:bg-zinc-900 dark:focus-visible:ring-offset-zinc-950"
+                className={`${styles.secondaryButton} inline-flex items-center rounded-xl border border-zinc-300 bg-white/70 px-5 py-3 text-sm font-bold text-zinc-800 backdrop-blur transition hover:border-zinc-400 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 dark:border-zinc-700 dark:bg-zinc-900/70 dark:text-zinc-100 dark:hover:border-zinc-600 dark:hover:bg-zinc-900 dark:focus-visible:ring-offset-zinc-950`}
               >
                 Let&apos;s work together
               </Link>
@@ -97,7 +98,7 @@ export default function HomePage() {
                 {projectInitials.map((initials, index) => (
                   <span
                     key={initials}
-                    className={`grid h-9 w-9 place-items-center rounded-full border-2 border-white text-[10px] font-bold text-white dark:border-zinc-950 ${
+                    className={`${styles.avatar} grid h-9 w-9 place-items-center rounded-full border-2 border-white text-[10px] font-bold text-white dark:border-zinc-950 ${
                       ["bg-violet-500", "bg-emerald-500", "bg-orange-500"][index]
                     }`}
                   >
@@ -111,88 +112,18 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-lg lg:mx-0 lg:justify-self-end">
-            <div className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-gradient-to-br from-blue-500/20 to-violet-500/20 blur-2xl" />
-            <div className="rotate-1 rounded-[2rem] border border-zinc-200 bg-white p-3 shadow-2xl shadow-zinc-900/15 transition hover:rotate-0 dark:border-zinc-700 dark:bg-zinc-900">
-              <div className="overflow-hidden rounded-[1.35rem] border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-950">
-                <div className="flex items-center justify-between border-b border-zinc-200 px-4 py-3 dark:border-zinc-800">
-                  <div className="flex gap-1.5" aria-hidden="true">
-                    <span className="h-2.5 w-2.5 rounded-full bg-rose-400" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
-                  </div>
-                  <span className="rounded-full bg-zinc-200 px-3 py-1 text-[10px] font-semibold text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">
-                    seeded portfolio
-                  </span>
-                </div>
-                <div className="grid grid-cols-[74px_1fr]">
-                  <div className="border-r border-zinc-200 p-3 dark:border-zinc-800">
-                    <div className="mb-7 h-7 w-7 rounded-lg bg-blue-600" />
-                    <div className="space-y-3">
-                      {["w-10 bg-blue-200 dark:bg-blue-900", "w-8", "w-11", "w-7"].map(
-                        (width, index) => (
-                          <div
-                            key={index}
-                            className={`h-1.5 rounded-full bg-zinc-200 dark:bg-zinc-800 ${width}`}
-                          />
-                        ),
-                      )}
-                    </div>
-                  </div>
-                  <div className="flex min-h-80 flex-col justify-between p-5 sm:p-7">
-                    <div>
-                      <div className="flex items-start justify-between gap-4">
-                        <div>
-                          <p className="text-[10px] font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400">
-                            Featured seed · {featuredProject.category}
-                          </p>
-                          <p className="mt-2 text-2xl font-black tracking-tight">{featuredProject.title}</p>
-                        </div>
-                        <span className="rounded-full bg-blue-100 px-2.5 py-1 text-[10px] font-bold text-blue-700 dark:bg-blue-950 dark:text-blue-300">
-                          {featuredProject.year}
-                        </span>
-                      </div>
-                      <p className="mt-5 text-sm leading-6 text-zinc-600 dark:text-zinc-300">
-                        {featuredProject.description}
-                      </p>
-                    </div>
-
-                    <div>
-                      <div className="mt-7 grid grid-cols-2 gap-3">
-                        <div className="rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-                          <p className="text-[10px] text-zinc-400">Technologies</p>
-                          <p className="mt-2 text-2xl font-black">{featuredProject.stack.length}</p>
-                        </div>
-                        <div className="rounded-xl bg-blue-600 p-4 text-white">
-                          <p className="text-[10px] text-blue-100">Project outcomes</p>
-                          <p className="mt-2 text-2xl font-black">{featuredProject.outcomes.length}</p>
-                        </div>
-                      </div>
-                      <div className="mt-3 flex flex-wrap gap-2 rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-                        {featuredProject.stack.map((item) => (
-                          <span key={item} className="rounded-full bg-zinc-100 px-2.5 py-1 text-[10px] font-semibold text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
-                            {item}
-                          </span>
-                        ))}
-                      </div>
-                      <Link href={`/portfolio/${featuredProject.slug}`} className="mt-4 inline-flex items-center gap-2 text-xs font-bold text-blue-600 hover:text-blue-500 dark:text-blue-400">
-                        View seeded case study <ArrowIcon />
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="relative mx-auto w-full max-w-2xl lg:mx-0 lg:justify-self-end">
+            <HomeHeroScene project={featuredProject} />
           </div>
         </div>
       </section>
 
-      <section aria-label="Experience highlights" className="border-b border-zinc-200 dark:border-zinc-800">
-        <div className="mx-auto grid w-full max-w-6xl grid-cols-2 px-4 sm:px-6 lg:grid-cols-4 lg:px-8">
+      <section aria-label="Experience highlights" className={styles.statsSection}>
+        <div className={`${styles.statsGrid} mx-auto grid w-full max-w-6xl grid-cols-2 px-4 sm:px-6 lg:grid-cols-4 lg:px-8`}>
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="border-zinc-200 px-3 py-8 text-center odd:border-r lg:border-r lg:last:border-r-0 dark:border-zinc-800"
+              className={`${styles.statCard} border-zinc-200 px-3 py-8 text-center odd:border-r lg:border-r lg:last:border-r-0 dark:border-zinc-800`}
             >
               <p className="text-3xl font-black tracking-tight text-zinc-950 dark:text-white">{stat.value}</p>
               <p className="mt-1 text-xs font-medium text-zinc-500 dark:text-zinc-400">{stat.label}</p>
@@ -201,7 +132,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
+      <section className={`${styles.sectionDepth} mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8`}>
         <div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr]">
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">What I do</p>
@@ -213,9 +144,9 @@ export default function HomePage() {
               More about me <ArrowIcon />
             </Link>
           </div>
-          <div className="divide-y divide-zinc-200 border-y border-zinc-200 dark:divide-zinc-800 dark:border-zinc-800">
+          <div className={styles.services}>
             {services.map((service) => (
-              <article key={service.number} className="group grid gap-3 py-6 sm:grid-cols-[56px_1fr_auto] sm:items-start">
+              <article key={service.number} className={`${styles.serviceCard} group grid gap-3 sm:grid-cols-[56px_1fr_auto] sm:items-start`}>
                 <span className="text-xs font-bold text-blue-600 dark:text-blue-400">{service.number}</span>
                 <div>
                   <h3 className="text-lg font-bold group-hover:text-blue-600 dark:group-hover:text-blue-400">{service.title}</h3>
@@ -230,7 +161,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/40">
+      <section className={styles.focusSection}>
         <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
           <div className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
             <div>
@@ -251,11 +182,11 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
+          <div className={`${styles.cardGrid} mt-10 grid gap-5 md:grid-cols-3`}>
             {currentFocus.map((item, index) => (
               <article
                 key={item.label}
-                className="group relative overflow-hidden rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-zinc-900/5 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-zinc-700"
+                className={`${styles.depthCard} group relative overflow-hidden rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-zinc-700`}
               >
                 <div
                   className={`absolute inset-x-0 top-0 h-1 origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100 ${item.accent}`}
@@ -286,8 +217,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-zinc-950 py-20 text-white sm:py-24 dark:bg-black">
-        <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+      <section className={`${styles.workSection} py-20 text-white sm:py-24`}>
+        <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
             <div>
               <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-400">Selected work</p>
@@ -300,11 +231,11 @@ export default function HomePage() {
 
           <div className="mt-10 grid gap-5 lg:grid-cols-3">
             {projects.map((project) => (
-              <Link href={`/portfolio/${project.slug}`} key={project.title} className="group overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900 transition hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950">
+              <Link href={`/portfolio/${project.slug}`} key={project.title} className={`${styles.projectCard} group overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950`}>
                 <div className={`relative h-52 overflow-hidden bg-gradient-to-br ${project.gradient} p-5`}>
                   <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full border border-white/20" />
                   <div className="absolute -right-2 top-8 h-24 w-24 rounded-full border border-white/20" />
-                  <div className="relative flex h-full flex-col justify-between rounded-xl border border-white/20 bg-black/15 p-5 backdrop-blur-sm transition duration-300 group-hover:-translate-y-1 group-hover:scale-[1.02]">
+                  <div className={`${styles.projectArtwork} relative flex h-full flex-col justify-between rounded-xl border border-white/20 bg-black/15 p-5 backdrop-blur-sm transition duration-300 group-hover:-translate-y-1 group-hover:scale-[1.02]`}>
                     <div className="flex items-center justify-between">
                       <span className="rounded-full bg-white/20 px-2.5 py-1 text-[10px] font-bold backdrop-blur">{project.number}</span>
                       <div className="flex gap-1"><span className="h-2 w-2 rounded-full bg-white/50" /><span className="h-2 w-2 rounded-full bg-white/25" /></div>
@@ -331,7 +262,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
+      <section className={`${styles.blogSection} mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8`}>
         <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">From the blog</p>
@@ -342,9 +273,9 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
+        <div className={`${styles.cardGrid} mt-10 grid gap-5 md:grid-cols-3`}>
           {posts.map((post) => (
-            <Link href={`/blogs/${post.slug}`} key={post.title} className="group flex flex-col rounded-2xl border border-zinc-200 bg-zinc-50 p-6 transition hover:-translate-y-1 hover:border-blue-300 hover:shadow-xl hover:shadow-zinc-900/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 dark:border-zinc-800 dark:bg-zinc-900/60 dark:hover:border-blue-800 dark:focus-visible:ring-offset-zinc-950">
+            <Link href={`/blogs/${post.slug}`} key={post.title} className={`${styles.depthCard} ${styles.blogCard} group flex flex-col rounded-2xl border border-zinc-200 bg-zinc-50 p-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 dark:border-zinc-800 dark:bg-zinc-900/60 dark:hover:border-blue-800 dark:focus-visible:ring-offset-zinc-950`}>
               <div className="flex items-center justify-between gap-3 text-[11px] font-semibold text-zinc-500 dark:text-zinc-400">
                 <span className="rounded-full bg-blue-100 px-2.5 py-1 text-blue-700 dark:bg-blue-950 dark:text-blue-300">{post.category}</span>
                 <span>{post.readTime}</span>
@@ -361,9 +292,9 @@ export default function HomePage() {
       </section>
 
       <section className="px-4 pb-20 sm:px-6 sm:pb-24 lg:px-8">
-        <div className="relative mx-auto max-w-6xl overflow-hidden rounded-3xl bg-blue-600 px-6 py-14 text-center text-white sm:px-12 sm:py-16">
-          <div className="absolute -left-20 -top-28 h-72 w-72 rounded-full border-[50px] border-white/10" />
-          <div className="absolute -bottom-32 -right-16 h-72 w-72 rounded-full border-[50px] border-white/10" />
+        <div className={`${styles.cta} relative mx-auto max-w-6xl overflow-hidden rounded-3xl px-6 py-14 text-center text-white sm:px-12 sm:py-16`}>
+          <div className={`${styles.ctaOrb} absolute -left-20 -top-28 h-72 w-72 rounded-full border-[50px] border-white/10`} />
+          <div className={`${styles.ctaOrb} absolute -bottom-32 -right-16 h-72 w-72 rounded-full border-[50px] border-white/10`} />
           <div className="relative">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-100">Have an idea?</p>
             <h2 className="mx-auto mt-3 max-w-2xl text-3xl font-black tracking-tight sm:text-5xl">Let&apos;s build something people enjoy using.</h2>
