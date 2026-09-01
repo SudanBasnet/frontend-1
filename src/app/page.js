@@ -1,4 +1,5 @@
 import Link from "next/link";
+import HomePageExperience from "@/components/Home/HomePageExperience";
 import HomeHeroScene from "@/components/Home/HomeHeroScene";
 import FloatingPortfolioSpheres from "@/components/Portfolio/FloatingPortfolioSpheres";
 import { blogPosts } from "@/data/blogPosts";
@@ -12,6 +13,7 @@ const featuredProject = portfolioProjects[0];
 const technologies = new Set(
   portfolioProjects.flatMap((project) => project.stack),
 );
+const technologyList = [...technologies];
 const projectYears = portfolioProjects.map((project) => Number(project.year));
 const projectTimeline = `${Math.min(...projectYears)}—${Math.max(...projectYears)}`;
 const projectInitials = projects.map((project) =>
@@ -22,9 +24,9 @@ const projectInitials = projects.map((project) =>
     .slice(0, 2),
 );
 const stats = [
-  { value: String(portfolioProjects.length), label: "Seeded case studies" },
-  { value: String(blogPosts.length), label: "Seeded articles" },
-  { value: String(technologies.size), label: "Technologies represented" },
+  { value: String(portfolioProjects.length), label: "Detailed case studies" },
+  { value: String(blogPosts.length), label: "Practical articles" },
+  { value: String(technologies.size), label: "Technologies in the work" },
   { value: projectTimeline, label: "Project timeline" },
 ];
 const { profile, services, currentFocus } = siteSeed;
@@ -54,7 +56,11 @@ export const metadata = {
 
 export default function HomePage() {
   return (
-    <div className={`${styles.page} overflow-hidden text-zinc-950 dark:text-white`}>
+    <div
+      className={`${styles.page} overflow-hidden text-zinc-950 dark:text-white`}
+      data-home-page
+    >
+      <HomePageExperience />
       <FloatingPortfolioSpheres />
 
       <section className={styles.hero}>
@@ -107,7 +113,7 @@ export default function HomePage() {
                 ))}
               </div>
               <p>
-                Built from <strong className="text-zinc-800 dark:text-zinc-200">{portfolioProjects.length} seeded case studies</strong>
+                Explore <strong className="text-zinc-800 dark:text-zinc-200">{portfolioProjects.length} detailed case studies</strong>
               </p>
             </div>
           </div>
@@ -118,7 +124,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section aria-label="Experience highlights" className={styles.statsSection}>
+      <section aria-label="Experience highlights" className={styles.statsSection} data-home-reveal>
         <div className={`${styles.statsGrid} mx-auto grid w-full max-w-6xl grid-cols-2 px-4 sm:px-6 lg:grid-cols-4 lg:px-8`}>
           {stats.map((stat) => (
             <div
@@ -132,7 +138,30 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className={`${styles.sectionDepth} mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8`}>
+      <section className={styles.toolkitSection} aria-labelledby="toolkit-title" data-home-reveal>
+        <div className={styles.toolkitIntro}>
+          <p id="toolkit-title">Built with a flexible toolkit</p>
+          <span>Chosen for the problem, not the trend.</span>
+        </div>
+        <div className={styles.toolkitMarquee}>
+          {[false, true].map((duplicate) => (
+            <ul
+              key={String(duplicate)}
+              className={styles.toolkitTrack}
+              aria-hidden={duplicate || undefined}
+            >
+              {technologyList.map((technology, index) => (
+                <li key={`${duplicate}-${technology}`}>
+                  <span className={styles.toolkitIndex}>0{index + 1}</span>
+                  {technology}
+                </li>
+              ))}
+            </ul>
+          ))}
+        </div>
+      </section>
+
+      <section className={`${styles.sectionDepth} mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8`} data-home-reveal>
         <div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr]">
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">What I do</p>
@@ -161,7 +190,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className={styles.focusSection}>
+      <section className={styles.focusSection} data-home-reveal>
         <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
           <div className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
             <div>
@@ -217,7 +246,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className={`${styles.workSection} py-20 text-white sm:py-24`}>
+      <section className={`${styles.workSection} py-20 text-white sm:py-24`} data-home-reveal>
         <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
             <div>
@@ -229,40 +258,85 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="mt-10 grid gap-5 lg:grid-cols-3">
-            {projects.map((project) => (
-              <Link href={`/portfolio/${project.slug}`} key={project.title} className={`${styles.projectCard} group overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950`}>
-                <div className={`relative h-52 overflow-hidden bg-gradient-to-br ${project.gradient} p-5`}>
-                  <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full border border-white/20" />
-                  <div className="absolute -right-2 top-8 h-24 w-24 rounded-full border border-white/20" />
-                  <div className={`${styles.projectArtwork} relative flex h-full flex-col justify-between rounded-xl border border-white/20 bg-black/15 p-5 backdrop-blur-sm transition duration-300 group-hover:-translate-y-1 group-hover:scale-[1.02]`}>
-                    <div className="flex items-center justify-between">
-                      <span className="rounded-full bg-white/20 px-2.5 py-1 text-[10px] font-bold backdrop-blur">{project.number}</span>
-                      <div className="flex gap-1"><span className="h-2 w-2 rounded-full bg-white/50" /><span className="h-2 w-2 rounded-full bg-white/25" /></div>
-                    </div>
+          <div className={styles.projectShowcase}>
+            <Link
+              href={`/portfolio/${projects[0].slug}`}
+              className={`${styles.featuredProject} group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-4 focus-visible:ring-offset-zinc-950`}
+            >
+              <div className={`relative min-h-72 overflow-hidden bg-gradient-to-br ${projects[0].gradient} p-6 sm:p-8`}>
+                <div className={styles.featuredProjectGlow} />
+                <div className={`${styles.projectArtwork} relative flex min-h-60 flex-col justify-between rounded-2xl border border-white/25 bg-black/15 p-6 backdrop-blur-md transition duration-500 group-hover:-translate-y-2 group-hover:rotate-1 group-hover:scale-[1.02]`}>
+                  <div className="flex items-center justify-between">
+                    <span className="rounded-full border border-white/20 bg-white/15 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] backdrop-blur">Featured · {projects[0].number}</span>
+                    <span className="font-mono text-xs text-white/70">{projects[0].year}</span>
+                  </div>
+                  <div className="grid gap-4 sm:grid-cols-[1fr_auto] sm:items-end">
                     <div>
-                      <p className="text-3xl font-black tracking-tight">{project.metric}</p>
-                      <p className="text-xs text-white/75">{project.metricLabel}</p>
+                      <p className="text-5xl font-black tracking-[-0.06em]">{projects[0].metric}</p>
+                      <p className="mt-1 text-xs text-white/75">{projects[0].metricLabel}</p>
+                    </div>
+                    <div className={styles.miniBars} aria-hidden="true">
+                      {[42, 68, 54, 86, 72].map((height, index) => (
+                        <span key={index} style={{ height: `${height}%` }} />
+                      ))}
                     </div>
                   </div>
                 </div>
-                <div className="p-6">
-                  <p className="text-xs font-bold uppercase tracking-wider text-blue-400">{project.category}</p>
-                  <h3 className="mt-2 text-xl font-bold">{project.title}</h3>
-                  <p className="mt-3 text-sm leading-6 text-zinc-400">{project.description}</p>
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {project.stack.map((item) => (
-                      <span key={item} className="rounded-full border border-zinc-700 px-2.5 py-1 text-[11px] font-medium text-zinc-300">{item}</span>
-                    ))}
-                  </div>
+              </div>
+              <article className="flex flex-col p-7 sm:p-9">
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-blue-400">{projects[0].category}</p>
+                <h3 className="mt-3 text-3xl font-black tracking-tight transition group-hover:text-blue-300 sm:text-4xl">{projects[0].title}</h3>
+                <p className="mt-4 max-w-xl text-sm leading-7 text-zinc-300">{projects[0].summary}</p>
+                <div className={styles.outcomeGrid}>
+                  {projects[0].outcomes.map((outcome) => (
+                    <div key={outcome.label}>
+                      <strong>{outcome.value}</strong>
+                      <span>{outcome.label}</span>
+                    </div>
+                  ))}
                 </div>
-              </Link>
-            ))}
+                <span className="mt-8 inline-flex items-center gap-2 text-sm font-bold text-blue-300">
+                  Read the full story <ArrowIcon className="h-4 w-4 transition duration-300 group-hover:translate-x-1" />
+                </span>
+              </article>
+            </Link>
+
+            <div className={styles.supportingProjects}>
+              {projects.slice(1).map((project) => (
+                <Link
+                  href={`/portfolio/${project.slug}`}
+                  key={project.title}
+                  className={`${styles.compactProject} group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-4 focus-visible:ring-offset-zinc-950`}
+                >
+                  <div className={`relative overflow-hidden bg-gradient-to-br ${project.gradient} p-5`}>
+                    <div className={styles.compactProjectOrb} />
+                    <div className="relative flex h-full min-h-32 flex-col justify-between rounded-xl border border-white/20 bg-black/15 p-4 backdrop-blur-sm transition duration-300 group-hover:-translate-y-1 group-hover:scale-[1.02]">
+                      <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-[0.14em] text-white/75">
+                        <span>{project.number}</span>
+                        <span>{project.year}</span>
+                      </div>
+                      <div>
+                        <p className="text-3xl font-black tracking-tight">{project.metric}</p>
+                        <p className="text-[11px] text-white/70">{project.metricLabel}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <article className="p-6">
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-blue-400">{project.category}</p>
+                    <div className="mt-2 flex items-start justify-between gap-4">
+                      <h3 className="text-xl font-bold transition group-hover:text-blue-300">{project.title}</h3>
+                      <span className={styles.projectArrow}><ArrowIcon /></span>
+                    </div>
+                    <p className="mt-3 text-sm leading-6 text-zinc-400">{project.description}</p>
+                  </article>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      <section className={`${styles.blogSection} mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8`}>
+      <section className={`${styles.blogSection} mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8`} data-home-reveal>
         <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">From the blog</p>
@@ -291,7 +365,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="px-4 pb-20 sm:px-6 sm:pb-24 lg:px-8">
+      <section className="px-4 pb-20 sm:px-6 sm:pb-24 lg:px-8" data-home-reveal>
         <div className={`${styles.cta} relative mx-auto max-w-6xl overflow-hidden rounded-3xl px-6 py-14 text-center text-white sm:px-12 sm:py-16`}>
           <div className={`${styles.ctaOrb} absolute -left-20 -top-28 h-72 w-72 rounded-full border-[50px] border-white/10`} />
           <div className={`${styles.ctaOrb} absolute -bottom-32 -right-16 h-72 w-72 rounded-full border-[50px] border-white/10`} />
