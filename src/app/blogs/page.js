@@ -1,15 +1,8 @@
 import Link from "next/link";
 import { blogPosts } from "@/data/blogPosts";
+import ArticleVisual from "@/components/Blogs/ArticleVisual";
+import BlogArchive from "@/components/Blogs/BlogArchive";
 import CommunityPosts from "@/components/Blogs/CommunityPosts";
-
-const accentStyles = {
-  blue: "from-blue-600 to-indigo-500 text-blue-100",
-  violet: "from-violet-600 to-fuchsia-500 text-violet-100",
-  emerald: "from-emerald-600 to-teal-500 text-emerald-100",
-  orange: "from-orange-500 to-amber-400 text-orange-50",
-  cyan: "from-cyan-600 to-blue-500 text-cyan-50",
-  rose: "from-rose-600 to-pink-500 text-rose-50",
-};
 
 const ArrowIcon = ({ className = "h-4 w-4" }) => (
   <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className={className}>
@@ -22,32 +15,6 @@ const ArrowIcon = ({ className = "h-4 w-4" }) => (
     />
   </svg>
 );
-
-function ArticleVisual({ post, featured = false }) {
-  return (
-    <div
-      className={`relative isolate overflow-hidden bg-gradient-to-br ${accentStyles[post.accent]} ${
-        featured ? "min-h-72 lg:min-h-full" : "h-48"
-      }`}
-      aria-hidden="true"
-    >
-      <div className="absolute -right-12 -top-12 h-44 w-44 rounded-full border-[28px] border-white/10" />
-      <div className="absolute -bottom-16 -left-12 h-52 w-52 rounded-full border-[38px] border-white/10" />
-      <div className="absolute inset-x-7 top-7 flex items-center justify-between text-[10px] font-bold uppercase tracking-[0.18em] text-white/70">
-        <span>Frontend One</span>
-        <span>{post.category}</span>
-      </div>
-      <div className="absolute bottom-6 left-7 right-7 flex items-end justify-between">
-        <span className={`${featured ? "text-8xl" : "text-6xl"} font-black leading-none tracking-[-0.08em] text-white/90`}>
-          {post.number}
-        </span>
-        <span className="mb-1 grid h-11 w-11 place-items-center rounded-full border border-white/30 bg-white/10 text-white backdrop-blur-sm">
-          <ArrowIcon className="h-5 w-5" />
-        </span>
-      </div>
-    </div>
-  );
-}
 
 export const metadata = {
   title: "Blog | Frontend One",
@@ -122,31 +89,7 @@ export default function BlogPage() {
             <p className="text-sm text-zinc-500 dark:text-zinc-400">{blogPosts.length} articles and counting</p>
           </div>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post) => (
-              <Link
-                key={post.slug}
-                href={`/blogs/${post.slug}`}
-                className="group flex flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white transition hover:-translate-y-1 hover:border-blue-300 hover:shadow-xl hover:shadow-zinc-900/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-blue-800 dark:focus-visible:ring-offset-zinc-950"
-              >
-                <ArticleVisual post={post} />
-                <article className="flex flex-1 flex-col p-6">
-                  <div className="flex items-center justify-between gap-3 text-[11px] font-semibold text-zinc-500 dark:text-zinc-400">
-                    <span className="uppercase tracking-wider text-blue-600 dark:text-blue-400">{post.category}</span>
-                    <span>{post.readTime}</span>
-                  </div>
-                  <h3 className="mt-4 text-xl font-bold leading-snug transition group-hover:text-blue-600 dark:group-hover:text-blue-400">
-                    {post.title}
-                  </h3>
-                  <p className="mt-3 flex-1 text-sm leading-6 text-zinc-600 dark:text-zinc-400">{post.excerpt}</p>
-                  <div className="mt-6 flex items-center justify-between border-t border-zinc-200 pt-4 dark:border-zinc-800">
-                    <time dateTime={post.isoDate} className="text-xs text-zinc-500 dark:text-zinc-400">{post.date}</time>
-                    <ArrowIcon className="h-4 w-4 text-blue-600 transition group-hover:translate-x-1 dark:text-blue-400" />
-                  </div>
-                </article>
-              </Link>
-            ))}
-          </div>
+          <BlogArchive posts={posts} />
         </div>
       </section>
 
