@@ -1,0 +1,759 @@
+.page {
+  background:
+    radial-gradient(circle at 8% 12%, rgb(59 130 246 / 0.08), transparent 26rem),
+    radial-gradient(circle at 92% 52%, rgb(124 58 237 / 0.07), transparent 28rem),
+    #fff;
+}
+
+:global(.dark) .page {
+  background:
+    radial-gradient(circle at 8% 12%, rgb(59 130 246 / 0.12), transparent 28rem),
+    radial-gradient(circle at 92% 52%, rgb(124 58 237 / 0.1), transparent 30rem),
+    #09090b;
+}
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-bottom: 1px solid rgb(161 161 170 / 0.24);
+}
+
+.hero::before {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(rgb(37 99 235 / 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(37 99 235 / 0.07) 1px, transparent 1px);
+  background-size: 4.5rem 4.5rem;
+  content: "";
+  mask-image: linear-gradient(to bottom, black, transparent 90%);
+  transform: perspective(700px) rotateX(63deg) scale(1.45) translateY(20%);
+  transform-origin: bottom;
+}
+
+.gradientText {
+  background: linear-gradient(100deg, #2563eb 10%, #7c3aed 58%, #0891b2 96%);
+  background-clip: text;
+  color: transparent;
+  -webkit-background-clip: text;
+}
+
+:global(.dark) .gradientText {
+  background-image: linear-gradient(100deg, #60a5fa 10%, #a78bfa 58%, #22d3ee 96%);
+}
+
+.portraitStage {
+  position: relative;
+  display: grid;
+  min-height: 34rem;
+  place-items: center;
+  perspective: 1100px;
+}
+
+.portraitStage::before,
+.portraitStage::after {
+  position: absolute;
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+.portraitStage::before {
+  width: min(34rem, 92vw);
+  height: min(34rem, 92vw);
+  border: 1px solid rgb(59 130 246 / 0.18);
+  background: radial-gradient(circle, rgb(59 130 246 / 0.11), transparent 65%);
+}
+
+.portraitStage::after {
+  bottom: 1.5rem;
+  width: 19rem;
+  height: 4rem;
+  background: rgb(37 99 235 / 0.18);
+  filter: blur(2rem);
+  transform: rotateX(72deg);
+}
+
+.portraitCard {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: min(22rem, 78vw);
+  min-height: 29rem;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 0.34);
+  border-radius: 2rem;
+  background: linear-gradient(145deg, rgb(37 99 235 / 0.94), rgb(79 70 229 / 0.96) 46%, rgb(124 58 237 / 0.94));
+  padding: 1.5rem;
+  color: white;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.35),
+    0 2.5rem 5rem rgb(30 64 175 / 0.28);
+  transform: rotateY(-7deg) rotateX(3deg);
+  transform-style: preserve-3d;
+}
+
+.portraitCard::before,
+.portraitCard::after {
+  position: absolute;
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+.portraitCard::before {
+  top: 4rem;
+  right: -7rem;
+  width: 18rem;
+  height: 18rem;
+  border: 3.5rem solid rgb(255 255 255 / 0.08);
+}
+
+.portraitCard::after {
+  bottom: -7rem;
+  left: -6rem;
+  width: 17rem;
+  height: 17rem;
+  border: 3rem solid rgb(255 255 255 / 0.08);
+}
+
+.cardTopline,
+.cardIdentity,
+.cardFooter {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.cardTopline,
+.cardFooter {
+  font-size: 0.61rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.cardTopline {
+  color: rgb(255 255 255 / 0.72);
+}
+
+.monogram {
+  position: relative;
+  z-index: 1;
+  align-self: center;
+  font-size: clamp(7rem, 18vw, 10rem);
+  font-weight: 950;
+  letter-spacing: -0.12em;
+  line-height: 1;
+  text-shadow: 0 1.5rem 3rem rgb(15 23 42 / 0.2);
+  transform: translateX(-0.07em) translateZ(2rem);
+}
+
+.cardIdentity {
+  padding: 1rem 0;
+  border-top: 1px solid rgb(255 255 255 / 0.2);
+  border-bottom: 1px solid rgb(255 255 255 / 0.2);
+}
+
+.cardIdentity p {
+  font-size: 1rem;
+  font-weight: 850;
+}
+
+.cardIdentity div > span {
+  color: rgb(255 255 255 / 0.7);
+  font-size: 0.72rem;
+}
+
+.statusDot {
+  width: 0.65rem;
+  height: 0.65rem;
+  border: 2px solid rgb(255 255 255 / 0.58);
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 0 0.35rem rgb(52 211 153 / 0.18);
+}
+
+.cardFooter {
+  justify-content: flex-start;
+  color: rgb(255 255 255 / 0.62);
+}
+
+.orbit {
+  position: absolute;
+  z-index: 3;
+  inset: 2rem;
+  border: 1px dashed rgb(59 130 246 / 0.28);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: orbit-spin 28s linear infinite;
+}
+
+.orbit span {
+  position: absolute;
+  border: 1px solid rgb(212 212 216 / 0.9);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.9);
+  padding: 0.45rem 0.7rem;
+  color: #3f3f46;
+  font-size: 0.62rem;
+  font-weight: 800;
+  box-shadow: 0 0.65rem 1.4rem rgb(15 23 42 / 0.1);
+  animation: orbit-counter-spin 28s linear infinite;
+}
+
+:global(.dark) .orbit span {
+  border-color: #3f3f46;
+  background: rgb(24 24 27 / 0.9);
+  color: #e4e4e7;
+}
+
+.orbit span:nth-child(1) {
+  top: 4%;
+  left: 18%;
+}
+
+.orbit span:nth-child(2) {
+  top: 48%;
+  right: -4%;
+}
+
+.orbit span:nth-child(3) {
+  bottom: 2%;
+  left: 22%;
+}
+
+.statsSection {
+  border-bottom: 1px solid rgb(161 161 170 / 0.24);
+  background: rgb(255 255 255 / 0.7);
+  backdrop-filter: blur(1rem);
+}
+
+:global(.dark) .statsSection {
+  background: rgb(9 9 11 / 0.72);
+}
+
+.statItem {
+  display: flex;
+  min-height: 8rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 0.75rem;
+  border-right: 1px solid rgb(161 161 170 / 0.24);
+  text-align: center;
+}
+
+.statItem:nth-child(2),
+.statItem:last-child {
+  border-right: 0;
+}
+
+.statItem strong {
+  color: #18181b;
+  font-size: clamp(1.65rem, 4vw, 2.2rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+}
+
+:global(.dark) .statItem strong {
+  color: white;
+}
+
+.statItem span {
+  margin-top: 0.25rem;
+  color: #71717a;
+  font-size: 0.72rem;
+  font-weight: 650;
+}
+
+.principleCard {
+  position: relative;
+  overflow: hidden;
+  min-height: 16rem;
+  border: 1px solid rgb(212 212 216 / 0.86);
+  border-radius: 1.35rem;
+  background: rgb(255 255 255 / 0.72);
+  padding: 1.5rem;
+  box-shadow: 0 1rem 2.5rem rgb(15 23 42 / 0.05);
+  transition: transform 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
+}
+
+:global(.dark) .principleCard {
+  border-color: #27272a;
+  background: rgb(24 24 27 / 0.72);
+}
+
+.principleCard:hover {
+  border-color: rgb(96 165 250 / 0.7);
+  box-shadow: 0 1.5rem 3rem rgb(37 99 235 / 0.1);
+  transform: translateY(-0.35rem);
+}
+
+.principleCard > span {
+  color: #2563eb;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.principleCard h3 {
+  max-width: 12rem;
+  margin-top: 4.5rem;
+  font-size: 1.25rem;
+  font-weight: 850;
+  letter-spacing: -0.025em;
+}
+
+.principleCard p {
+  margin-top: 0.75rem;
+  color: #71717a;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+:global(.dark) .principleCard p {
+  color: #a1a1aa;
+}
+
+.capabilitiesSection {
+  position: relative;
+  overflow: hidden;
+  background: #09090b;
+}
+
+.capabilitiesSection::before {
+  position: absolute;
+  top: -18rem;
+  left: 40%;
+  width: 45rem;
+  height: 45rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(37 99 235 / 0.24), rgb(124 58 237 / 0.08) 42%, transparent 68%);
+  content: "";
+  pointer-events: none;
+}
+
+.techCloud {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 2rem;
+}
+
+.techCloud > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid #27272a;
+  border-radius: 999px;
+  background: rgb(24 24 27 / 0.8);
+  padding: 0.5rem 0.75rem;
+  color: #d4d4d8;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.techCloud small {
+  color: #60a5fa;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.55rem;
+}
+
+.servicesList {
+  position: relative;
+  border-top: 1px solid #27272a;
+}
+
+.servicesList article {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr auto;
+  gap: 1rem;
+  align-items: start;
+  padding: 1.65rem 0;
+  border-bottom: 1px solid #27272a;
+  color: #71717a;
+  transition: color 220ms ease, padding 220ms ease;
+}
+
+.servicesList article:hover {
+  padding-right: 0.35rem;
+  padding-left: 0.35rem;
+  color: #60a5fa;
+}
+
+.servicesList article > span {
+  color: #60a5fa;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.65rem;
+  font-weight: 800;
+}
+
+.servicesList h3 {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.servicesList p {
+  max-width: 34rem;
+  margin-top: 0.5rem;
+  color: #a1a1aa;
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+
+.rhythmList {
+  display: grid;
+  margin-top: 3rem;
+  border-top: 1px solid rgb(161 161 170 / 0.38);
+}
+
+.rhythmList li {
+  display: grid;
+  grid-template-columns: 3rem 0.65fr 1.35fr;
+  gap: 1.25rem;
+  align-items: start;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgb(161 161 170 / 0.38);
+}
+
+.rhythmList li > span {
+  color: #2563eb;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.rhythmList h3 {
+  font-weight: 800;
+}
+
+.rhythmList p {
+  color: #71717a;
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+
+:global(.dark) .rhythmList p {
+  color: #a1a1aa;
+}
+
+.focusSection {
+  border-top: 1px solid rgb(161 161 170 / 0.24);
+  border-bottom: 1px solid rgb(161 161 170 / 0.24);
+  background: rgb(244 244 245 / 0.7);
+}
+
+:global(.dark) .focusSection {
+  background: rgb(24 24 27 / 0.52);
+}
+
+.focusCard {
+  display: flex;
+  min-height: 19rem;
+  flex-direction: column;
+  border: 1px solid rgb(212 212 216 / 0.88);
+  border-radius: 1.3rem;
+  background: white;
+  padding: 1.5rem;
+  box-shadow: 0 0.85rem 2rem rgb(15 23 42 / 0.05);
+}
+
+:global(.dark) .focusCard {
+  border-color: #27272a;
+  background: #09090b;
+}
+
+.focusCard > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.focusCard > div > span {
+  width: 2rem;
+  height: 0.25rem;
+  border-radius: 999px;
+}
+
+.focusCard small {
+  color: #d4d4d8;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.62rem;
+}
+
+:global(.dark) .focusCard small {
+  color: #3f3f46;
+}
+
+.focusCard > p {
+  margin-top: 3.5rem;
+  color: #2563eb;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.focusCard h3 {
+  margin-top: 0.65rem;
+  font-size: 1.3rem;
+  font-weight: 850;
+  letter-spacing: -0.03em;
+}
+
+.focusCard > span {
+  margin-top: 0.8rem;
+  color: #71717a;
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+
+:global(.dark) .focusCard > span {
+  color: #a1a1aa;
+}
+
+.focusCard footer {
+  margin-top: auto;
+  padding-top: 1.2rem;
+  border-top: 1px solid #e4e4e7;
+  color: #52525b;
+  font-size: 0.72rem;
+  font-weight: 750;
+}
+
+:global(.dark) .focusCard footer {
+  border-color: #27272a;
+  color: #a1a1aa;
+}
+
+.projectCard {
+  overflow: hidden;
+  border: 1px solid rgb(212 212 216 / 0.88);
+  border-radius: 1.3rem;
+  background: white;
+  transition: transform 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
+}
+
+:global(.dark) .projectCard {
+  border-color: #27272a;
+  background: #18181b;
+}
+
+.projectCard:hover {
+  border-color: rgb(96 165 250 / 0.72);
+  box-shadow: 0 1.5rem 3rem rgb(15 23 42 / 0.12);
+  transform: translateY(-0.35rem);
+}
+
+.projectCard:focus-visible {
+  border-color: #2563eb;
+  outline: 2px solid #2563eb;
+  outline-offset: 3px;
+}
+
+.projectCard > div {
+  display: flex;
+  min-height: 12rem;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 1.35rem;
+  color: white;
+}
+
+.projectCard > div > span {
+  margin-bottom: auto;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.62rem;
+  font-weight: 800;
+}
+
+.projectCard > div strong {
+  font-size: 2.3rem;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+}
+
+.projectCard > div small {
+  color: rgb(255 255 255 / 0.7);
+  font-size: 0.65rem;
+}
+
+.projectCard article {
+  display: flex;
+  min-height: 16rem;
+  flex-direction: column;
+  padding: 1.35rem;
+}
+
+.projectCard article > p {
+  color: #2563eb;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.projectCard h3 {
+  margin-top: 0.7rem;
+  font-size: 1.25rem;
+  font-weight: 850;
+  letter-spacing: -0.025em;
+}
+
+.projectCard article > span {
+  margin-top: 0.75rem;
+  color: #71717a;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+:global(.dark) .projectCard article > span {
+  color: #a1a1aa;
+}
+
+.projectCard footer {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: auto;
+  color: #2563eb;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.cta {
+  position: relative;
+  overflow: hidden;
+  max-width: 72rem;
+  margin-inline: auto;
+  border-radius: 2rem;
+  background: linear-gradient(125deg, #1d4ed8, #4f46e5 55%, #7c3aed);
+  padding: 4rem 1.5rem;
+  color: white;
+  text-align: center;
+  box-shadow: 0 2rem 4rem rgb(37 99 235 / 0.2);
+}
+
+.cta > div {
+  position: absolute;
+  right: -5rem;
+  bottom: -9rem;
+  width: 22rem;
+  height: 22rem;
+  border: 4rem solid rgb(255 255 255 / 0.09);
+  border-radius: 50%;
+}
+
+.cta > p,
+.cta > h2,
+.cta > span,
+.cta > a {
+  position: relative;
+}
+
+.cta > p {
+  color: #bfdbfe;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.cta h2 {
+  max-width: 46rem;
+  margin: 0.8rem auto 0;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  letter-spacing: -0.055em;
+  line-height: 1.02;
+}
+
+.cta > span {
+  display: block;
+  max-width: 35rem;
+  margin: 1.25rem auto 0;
+  color: #dbeafe;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.cta > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  border-radius: 0.8rem;
+  background: white;
+  padding: 0.8rem 1.1rem;
+  color: #1d4ed8;
+  font-size: 0.85rem;
+  font-weight: 800;
+  box-shadow: 0 1rem 2rem rgb(30 41 59 / 0.2);
+  transition: transform 200ms ease, background 200ms ease;
+}
+
+.cta > a:hover {
+  background: #eff6ff;
+  transform: translateY(-0.15rem);
+}
+
+.cta > a:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 4px;
+}
+
+@keyframes orbit-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes orbit-counter-spin {
+  to { transform: rotate(-360deg); }
+}
+
+@media (min-width: 1024px) {
+  .statItem:nth-child(2) {
+    border-right: 1px solid rgb(161 161 170 / 0.24);
+  }
+}
+
+@media (max-width: 767px) {
+  .portraitStage {
+    min-height: 30rem;
+  }
+
+  .orbit {
+    inset: 1.5rem;
+  }
+
+  .rhythmList li {
+    grid-template-columns: 2.5rem 1fr;
+  }
+
+  .rhythmList p {
+    grid-column: 2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit,
+  .orbit span {
+    animation: none;
+  }
+
+  .principleCard,
+  .projectCard,
+  .cta > a {
+    transition: none;
+  }
+}
