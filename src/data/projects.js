@@ -196,3 +196,17 @@ export const portfolioProjects = [
 export function getPortfolioProject(slug) {
   return portfolioProjects.find((project) => project.slug === slug);
 }
+
+export function getNextPortfolioProject(slug) {
+  const currentIndex = portfolioProjects.findIndex((project) => project.slug === slug);
+
+  if (currentIndex === -1) return undefined;
+
+  return portfolioProjects[(currentIndex + 1) % portfolioProjects.length];
+}
+
+export function getPortfolioYearRange() {
+  const years = portfolioProjects.map((project) => Number(project.year));
+
+  return `${Math.min(...years)}—${Math.max(...years)}`;
+}

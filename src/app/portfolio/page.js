@@ -1,13 +1,9 @@
 import Link from "next/link";
+import { ArrowIcon } from "@/components/Portfolio/PortfolioIcons";
 import ProjectArtwork from "@/components/Portfolio/ProjectArtwork";
 import PortfolioArchive from "@/components/Portfolio/PortfolioArchive";
-import { portfolioProjects } from "@/data/projects";
-
-const ArrowIcon = ({ className = "h-4 w-4" }) => (
-  <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className={className}>
-    <path d="M4 10h12m-5-5 5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
+import ProjectStack from "@/components/Portfolio/ProjectStack";
+import { getPortfolioYearRange, portfolioProjects } from "@/data/projects";
 
 const process = [
   { number: "01", title: "Understand", text: "Clarify the people, constraints, and outcome before choosing a solution." },
@@ -22,6 +18,8 @@ export const metadata = {
 
 export default function PortfolioPage() {
   const [featuredProject, ...projects] = portfolioProjects;
+  const projectCount = String(portfolioProjects.length).padStart(2, "0");
+  const yearRange = getPortfolioYearRange();
 
   return (
     <div className="overflow-hidden bg-white text-zinc-950 dark:bg-zinc-950 dark:text-white">
@@ -29,7 +27,7 @@ export default function PortfolioPage() {
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_12%_18%,rgba(37,99,235,0.14),transparent_29%),radial-gradient(circle_at_88%_75%,rgba(124,58,237,0.12),transparent_27%)] dark:bg-[radial-gradient(circle_at_12%_18%,rgba(59,130,246,0.17),transparent_29%),radial-gradient(circle_at_88%_75%,rgba(139,92,246,0.15),transparent_27%)]" />
         <div className="mx-auto grid w-full max-w-6xl items-end gap-10 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-[1fr_auto] lg:px-8">
           <div className="max-w-4xl">
-            <p className="text-sm font-bold uppercase tracking-[0.22em] text-blue-600 dark:text-blue-400">Selected work · 2024—2026</p>
+            <p className="text-sm font-bold uppercase tracking-[0.22em] text-blue-600 dark:text-blue-400">Selected work · {yearRange}</p>
             <h1 className="mt-4 text-5xl font-black leading-[0.97] tracking-[-0.055em] sm:text-6xl lg:text-7xl">
               Digital products shaped around <span className="text-blue-600 dark:text-blue-400">real needs.</span>
             </h1>
@@ -38,7 +36,7 @@ export default function PortfolioPage() {
             </p>
           </div>
           <div className="hidden pb-2 text-right lg:block">
-            <p className="text-5xl font-black tracking-tight">06</p>
+            <p className="text-5xl font-black tracking-tight">{projectCount}</p>
             <p className="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-zinc-500 dark:text-zinc-400">Case studies</p>
           </div>
         </div>
@@ -56,9 +54,7 @@ export default function PortfolioPage() {
         <Link href={`/portfolio/${featuredProject.slug}`} className="group grid overflow-hidden rounded-3xl border border-zinc-200 bg-zinc-50 transition hover:-translate-y-1 hover:border-blue-300 hover:shadow-2xl hover:shadow-zinc-900/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 lg:grid-cols-[1.1fr_0.9fr] dark:border-zinc-800 dark:bg-zinc-900/60 dark:hover:border-blue-800 dark:focus-visible:ring-offset-zinc-950">
           <ProjectArtwork project={featuredProject} featured />
           <article className="flex flex-col justify-center p-7 sm:p-10 lg:p-12">
-            <div className="flex flex-wrap items-center gap-2">
-              {featuredProject.stack.map((item) => <span key={item} className="rounded-full border border-zinc-300 px-2.5 py-1 text-[11px] font-semibold text-zinc-600 dark:border-zinc-700 dark:text-zinc-300">{item}</span>)}
-            </div>
+            <ProjectStack items={featuredProject.stack} variant="border" />
             <p className="mt-7 text-xs font-bold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-400">{featuredProject.category}</p>
             <h3 className="mt-2 text-4xl font-black tracking-tight transition group-hover:text-blue-600 sm:text-5xl dark:group-hover:text-blue-400">{featuredProject.title}</h3>
             <p className="mt-5 leading-7 text-zinc-600 dark:text-zinc-300">{featuredProject.summary}</p>

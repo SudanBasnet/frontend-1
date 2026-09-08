@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArrowIcon } from "@/components/Portfolio/PortfolioIcons";
 import ProjectArtwork from "@/components/Portfolio/ProjectArtwork";
-import { getPortfolioProject, portfolioProjects } from "@/data/projects";
-
-const ArrowIcon = ({ className = "h-4 w-4" }) => (
-  <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className={className}>
-    <path d="M4 10h12m-5-5 5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
+import ProjectStack from "@/components/Portfolio/ProjectStack";
+import {
+  getNextPortfolioProject,
+  getPortfolioProject,
+  portfolioProjects,
+} from "@/data/projects";
 
 export function generateStaticParams() {
   return portfolioProjects.map((project) => ({ slug: project.slug }));
@@ -31,8 +31,7 @@ export default async function ProjectPage({ params }) {
 
   if (!project) notFound();
 
-  const currentIndex = portfolioProjects.findIndex((item) => item.slug === project.slug);
-  const nextProject = portfolioProjects[(currentIndex + 1) % portfolioProjects.length];
+  const nextProject = getNextPortfolioProject(project.slug);
 
   return (
     <article className="bg-white text-zinc-950 dark:bg-zinc-950 dark:text-white">
@@ -46,9 +45,12 @@ export default async function ProjectPage({ params }) {
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">{project.category} · {project.year}</p>
               <h1 className="mt-4 text-5xl font-black leading-none tracking-[-0.055em] sm:text-6xl">{project.title}</h1>
               <p className="mt-6 text-lg leading-8 text-zinc-600 dark:text-zinc-300">{project.summary}</p>
-              <div className="mt-8 flex flex-wrap gap-2">
-                {project.stack.map((item) => <span key={item} className="rounded-full border border-zinc-300 bg-white/60 px-3 py-1.5 text-xs font-semibold text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900/60 dark:text-zinc-300">{item}</span>)}
-              </div>
+              <ProjectStack
+                items={project.stack}
+                variant="surface"
+                size="medium"
+                className="mt-8"
+              />
             </div>
             <div className="overflow-hidden rounded-3xl border border-white/20 shadow-2xl shadow-zinc-900/15"><ProjectArtwork project={project} featured /></div>
           </div>

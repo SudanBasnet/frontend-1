@@ -1,70 +1,66 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo, useState } from "react";
-import ProjectArtwork from "@/components/Portfolio/ProjectArtwork";
+import { SearchIcon } from "@/components/Portfolio/PortfolioIcons";
+import PortfolioProjectCard from "@/components/Portfolio/PortfolioProjectCard";
 
-const ArrowIcon = () => (
-  <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className="h-4 w-4">
-    <path
-      d="M4 10h12m-5-5 5 5-5 5"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
+const DEFAULT_YEAR = "All";
+const DEFAULT_SORT = "newest";
 
-const SearchIcon = () => (
-  <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className="h-5 w-5">
-    <circle cx="8.75" cy="8.75" r="5.75" stroke="currentColor" strokeWidth="1.7" />
-    <path d="m13 13 4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-  </svg>
-);
+const sortOptions = [
+  { value: DEFAULT_SORT, label: "Newest first" },
+  { value: "oldest", label: "Oldest first" },
+  { value: "title", label: "Project name" },
+];
+
+const projectSorters = {
+  newest: (a, b) => Number(b.year) - Number(a.year),
+  oldest: (a, b) => Number(a.year) - Number(b.year),
+  title: (a, b) => a.title.localeCompare(b.title),
+};
+
+function getSearchableText(project) {
+  return [project.title, project.category, project.description, ...project.stack]
+    .join(" ")
+    .toLowerCase();
+}
+
+function filterAndSortProjects(projects, { query, sort, year }) {
+  const normalizedQuery = query.trim().toLowerCase();
+
+  return projects
+    .filter(
+      (project) =>
+        (year === DEFAULT_YEAR || project.year === year) &&
+        (!normalizedQuery || getSearchableText(project).includes(normalizedQuery)),
+    )
+    .sort(projectSorters[sort] ?? projectSorters[DEFAULT_SORT]);
+}
 
 export default function PortfolioArchive({ projects }) {
   const [query, setQuery] = useState("");
-  const [year, setYear] = useState("All");
-  const [sort, setSort] = useState("newest");
+  const [year, setYear] = useState(DEFAULT_YEAR);
+  const [sort, setSort] = useState(DEFAULT_SORT);
 
   const years = useMemo(
-    () => [...new Set(projects.map((project) => project.year))].sort((a, b) => Number(b) - Number(a)),
+    () =>
+      [...new Set(projects.map((project) => project.year))].sort(
+        (a, b) => Number(b) - Number(a),
+      ),
     [projects],
   );
 
-  const visibleProjects = useMemo(() => {
-    const normalizedQuery = query.trim().toLowerCase();
+  const visibleProjects = useMemo(
+    () => filterAndSortProjects(projects, { query, sort, year }),
+    [projects, query, sort, year],
+  );
 
-    return projects
-      .filter((project) => {
-        const searchableText = [
-          project.title,
-          project.category,
-          project.description,
-          ...project.stack,
-        ]
-          .join(" ")
-          .toLowerCase();
-
-        return (
-          (year === "All" || project.year === year) &&
-          (!normalizedQuery || searchableText.includes(normalizedQuery))
-        );
-      })
-      .sort((a, b) => {
-        if (sort === "oldest") return Number(a.year) - Number(b.year);
-        if (sort === "title") return a.title.localeCompare(b.title);
-        return Number(b.year) - Number(a.year);
-      });
-  }, [projects, query, sort, year]);
-
-  const hasFilters = query || year !== "All" || sort !== "newest";
+  const hasFilters = query || year !== DEFAULT_YEAR || sort !== DEFAULT_SORT;
 
   const resetFilters = () => {
     setQuery("");
-    setYear("All");
-    setSort("newest");
+    setYear(DEFAULT_YEAR);
+    setSort(DEFAULT_SORT);
   };
 
   return (
@@ -98,7 +94,7 @@ export default function PortfolioArchive({ projects }) {
               onChange={(event) => setYear(event.target.value)}
               className="min-w-32 rounded-xl border border-zinc-300 bg-zinc-50 px-4 py-3 text-sm font-semibold text-zinc-800 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-200 dark:focus:border-blue-400"
             >
-              <option value="All">All years</option>
+              <option value={DEFAULT_YEAR}>All years</option>
               {years.map((projectYear) => (
                 <option key={projectYear} value={projectYear}>{projectYear}</option>
               ))}
@@ -114,9 +110,11 @@ export default function PortfolioArchive({ projects }) {
               onChange={(event) => setSort(event.target.value)}
               className="min-w-40 rounded-xl border border-zinc-300 bg-zinc-50 px-4 py-3 text-sm font-semibold text-zinc-800 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-200 dark:focus:border-blue-400"
             >
-              <option value="newest">Newest first</option>
-              <option value="oldest">Oldest first</option>
-              <option value="title">Project name</option>
+              {sortOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
             </select>
           </label>
         </div>
@@ -140,25 +138,7 @@ export default function PortfolioArchive({ projects }) {
       {visibleProjects.length ? (
         <div className="mt-6 grid gap-6 md:grid-cols-2">
           {visibleProjects.map((project) => (
-            <Link key={project.slug} href={`/portfolio/${project.slug}`} className="group overflow-hidden rounded-2xl border border-zinc-200 bg-white transition hover:-translate-y-1 hover:border-blue-300 hover:shadow-xl hover:shadow-zinc-900/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-blue-800 dark:focus-visible:ring-offset-zinc-950">
-              <ProjectArtwork project={project} />
-              <article className="p-6 sm:p-7">
-                <div className="flex items-center justify-between gap-4 text-xs font-bold uppercase tracking-[0.14em] text-zinc-500 dark:text-zinc-400">
-                  <span className="text-blue-600 dark:text-blue-400">{project.category}</span>
-                  <span>{project.year}</span>
-                </div>
-                <div className="mt-4 flex items-start justify-between gap-6">
-                  <div>
-                    <h3 className="text-2xl font-black tracking-tight transition group-hover:text-blue-600 dark:group-hover:text-blue-400">{project.title}</h3>
-                    <p className="mt-3 max-w-xl text-sm leading-6 text-zinc-600 dark:text-zinc-400">{project.description}</p>
-                  </div>
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-zinc-200 text-blue-600 transition group-hover:border-blue-600 group-hover:bg-blue-600 group-hover:text-white dark:border-zinc-700 dark:text-blue-400"><ArrowIcon /></span>
-                </div>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {project.stack.map((item) => <span key={item} className="rounded-full bg-zinc-100 px-2.5 py-1 text-[11px] font-semibold text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">{item}</span>)}
-                </div>
-              </article>
-            </Link>
+            <PortfolioProjectCard key={project.slug} project={project} />
           ))}
         </div>
       ) : (
