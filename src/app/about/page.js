@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SectionHeading from "@/components/SectionHeading/SectionHeading";
 import { blogPosts } from "@/data/blogPosts";
 import { portfolioProjects } from "@/data/projects";
 import { siteSeed } from "@/data/siteSeed";
@@ -152,8 +153,9 @@ export default function AboutPage() {
       <section className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">The perspective</p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">Useful before impressive.</h2>
+            <SectionHeading eyebrow="The perspective">
+              Useful before impressive.
+            </SectionHeading>
           </div>
           <div>
             <p className="text-xl font-semibold leading-8 tracking-tight text-zinc-800 sm:text-2xl sm:leading-9 dark:text-zinc-100">
@@ -185,8 +187,9 @@ export default function AboutPage() {
         <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-400">Across the stack</p>
-              <h2 className="mt-3 text-3xl font-black tracking-tight text-white sm:text-4xl">From first interaction to dependable data.</h2>
+              <SectionHeading eyebrow="Across the stack" inverted>
+                From first interaction to dependable data.
+              </SectionHeading>
               <p className="mt-5 max-w-lg leading-7 text-zinc-400">
                 I combine product thinking, interface craft, and practical engineering so fewer important decisions get lost between disciplines.
               </p>
@@ -220,8 +223,9 @@ export default function AboutPage() {
       <section className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
         <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">Working rhythm</p>
-            <h2 className="mt-3 max-w-2xl text-3xl font-black tracking-tight sm:text-4xl">A practical path from ambiguity to something people can use.</h2>
+            <SectionHeading eyebrow="Working rhythm" titleClassName="max-w-2xl">
+              A practical path from ambiguity to something people can use.
+            </SectionHeading>
           </div>
           <Link href="/portfolio" className="inline-flex items-center gap-2 text-sm font-bold text-blue-600 hover:text-blue-500 dark:text-blue-400">
             Explore the outcomes <ArrowIcon />
@@ -243,8 +247,9 @@ export default function AboutPage() {
         <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
           <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400">Right now</p>
-              <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">Still learning, making, and refining.</h2>
+              <SectionHeading eyebrow="Right now" accent="emerald">
+                Still learning, making, and refining.
+              </SectionHeading>
             </div>
             <p className="max-w-xl text-sm leading-7 text-zinc-600 lg:justify-self-end dark:text-zinc-300">
               The tools change quickly. The useful habit is staying curious about better ways to communicate, build, and solve the problem in front of you.
@@ -271,8 +276,9 @@ export default function AboutPage() {
       <section className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
         <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">Work in practice</p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">The principles, applied to real product problems.</h2>
+            <SectionHeading eyebrow="Work in practice">
+              The principles, applied to real product problems.
+            </SectionHeading>
           </div>
           <Link href="/portfolio" className="inline-flex items-center gap-2 text-sm font-bold text-blue-600 hover:text-blue-500 dark:text-blue-400">
             All case studies <ArrowIcon />
