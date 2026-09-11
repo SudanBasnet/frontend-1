@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ContactCallout from "@/components/ContactCallout/ContactCallout";
 import { blogPosts } from "@/data/blogPosts";
 import ArticleVisual from "@/components/Blogs/ArticleVisual";
 import BlogArchive from "@/components/Blogs/BlogArchive";
@@ -96,19 +97,12 @@ export default function BlogPage() {
       <CommunityPosts />
 
       <section className="px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-        <div className="relative mx-auto max-w-6xl overflow-hidden rounded-3xl bg-zinc-950 px-6 py-12 text-white sm:px-10 sm:py-14 dark:bg-black">
-          <div className="absolute -right-20 -top-24 h-64 w-64 rounded-full border-[45px] border-blue-500/20" />
-          <div className="relative flex flex-col justify-between gap-8 sm:flex-row sm:items-center">
-            <div className="max-w-2xl">
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-400">Keep the conversation going</p>
-              <h2 className="mt-3 text-3xl font-black tracking-tight">Building something interesting?</h2>
-              <p className="mt-3 leading-7 text-zinc-400">I&apos;d love to hear about the problem you&apos;re solving or the lesson you&apos;re learning.</p>
-            </div>
-            <Link href="/contact" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950">
-              Start a conversation <ArrowIcon />
-            </Link>
-          </div>
-        </div>
+        <ContactCallout
+          eyebrow="Keep the conversation going"
+          title="Building something interesting?"
+          description="I'd love to hear about the problem you're solving or the lesson you're learning."
+          variant="dark"
+        />
       </section>
     </div>
   );

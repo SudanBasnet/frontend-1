@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ContactCallout from "@/components/ContactCallout/ContactCallout";
 import { ArrowIcon } from "@/components/Portfolio/PortfolioIcons";
 import ProjectArtwork from "@/components/Portfolio/ProjectArtwork";
 import PortfolioArchive from "@/components/Portfolio/PortfolioArchive";
@@ -96,15 +97,10 @@ export default function PortfolioPage() {
       </section>
 
       <section className="px-4 pb-16 sm:px-6 sm:pb-20 lg:px-8">
-        <div className="relative mx-auto max-w-6xl overflow-hidden rounded-3xl bg-blue-600 px-6 py-14 text-center text-white sm:px-12 sm:py-16">
-          <div className="absolute -left-20 -top-28 h-72 w-72 rounded-full border-[50px] border-white/10" />
-          <div className="absolute -bottom-32 -right-16 h-72 w-72 rounded-full border-[50px] border-white/10" />
-          <div className="relative">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-100">Have a project in mind?</p>
-            <h2 className="mx-auto mt-3 max-w-2xl text-3xl font-black tracking-tight sm:text-5xl">Let&apos;s turn the rough idea into something real.</h2>
-            <Link href="/contact" className="mt-8 inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-blue-700 shadow-lg transition hover:-translate-y-0.5 hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600">Start a conversation <ArrowIcon /></Link>
-          </div>
-        </div>
+        <ContactCallout
+          eyebrow="Have a project in mind?"
+          title="Let's turn the rough idea into something real."
+        />
       </section>
     </div>
   );
