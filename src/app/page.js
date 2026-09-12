@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ContactCallout from "@/components/ContactCallout/ContactCallout";
 import HomePageExperience from "@/components/Home/HomePageExperience";
 import HomeHeroScene from "@/components/Home/HomeHeroScene";
 import FloatingPortfolioSpheres from "@/components/Portfolio/FloatingPortfolioSpheres";
@@ -366,18 +367,14 @@ export default function HomePage() {
       </section>
 
       <section className="px-4 pb-20 sm:px-6 sm:pb-24 lg:px-8" data-home-reveal>
-        <div className={`${styles.cta} relative mx-auto max-w-6xl overflow-hidden rounded-3xl px-6 py-14 text-center text-white sm:px-12 sm:py-16`}>
-          <div className={`${styles.ctaOrb} absolute -left-20 -top-28 h-72 w-72 rounded-full border-[50px] border-white/10`} />
-          <div className={`${styles.ctaOrb} absolute -bottom-32 -right-16 h-72 w-72 rounded-full border-[50px] border-white/10`} />
-          <div className="relative">
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-100">Have an idea?</p>
-            <h2 className="mx-auto mt-3 max-w-2xl text-3xl font-black tracking-tight sm:text-5xl">Let&apos;s build something people enjoy using.</h2>
-            <p className="mx-auto mt-5 max-w-xl text-sm leading-6 text-blue-100 sm:text-base">I&apos;m always happy to discuss a new project, collaboration, or interesting problem.</p>
-            <Link href="/contact" className="mt-8 inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-blue-700 shadow-lg transition hover:-translate-y-0.5 hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600">
-              Start a conversation <ArrowIcon />
-            </Link>
-          </div>
-        </div>
+        <ContactCallout
+          eyebrow="Have an idea?"
+          title="Let's build something people enjoy using."
+          description="I'm always happy to discuss a new project, collaboration, or interesting problem."
+          variant="home"
+          className={styles.cta}
+          decorationClassName={styles.ctaOrb}
+        />
       </section>
     </div>
   );
