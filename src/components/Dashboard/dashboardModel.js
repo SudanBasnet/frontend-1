@@ -27,16 +27,39 @@ export function createPostPayload(editor) {
 export function getDashboardStats(posts) {
   const published = posts.filter((post) => post.status === "published").length;
   const tags = new Set(posts.flatMap((post) => post.tags || [])).size;
+  const publishRate = posts.length
+    ? `${Math.round((published / posts.length) * 100)}% of your library`
+    : "Start with your first story";
 
   return [
-    { label: "All posts", value: posts.length, accent: "bg-blue-500" },
-    { label: "Published", value: published, accent: "bg-emerald-500" },
+    {
+      label: "All posts",
+      value: posts.length,
+      detail: "Across drafts and live stories",
+      accent: "from-blue-500 to-cyan-400",
+      icon: "posts",
+    },
+    {
+      label: "Published",
+      value: published,
+      detail: publishRate,
+      accent: "from-emerald-500 to-teal-400",
+      icon: "published",
+    },
     {
       label: "Drafts",
       value: posts.length - published,
-      accent: "bg-violet-500",
+      detail: "Ideas still in progress",
+      accent: "from-violet-500 to-fuchsia-400",
+      icon: "drafts",
     },
-    { label: "Unique tags", value: tags, accent: "bg-amber-500" },
+    {
+      label: "Unique tags",
+      value: tags,
+      detail: "Topics in your collection",
+      accent: "from-amber-500 to-orange-400",
+      icon: "tags",
+    },
   ];
 }
 

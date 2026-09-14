@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { formatPostDate } from "@/components/Dashboard/dashboardModel";
 
 export default function PostList({
@@ -5,22 +6,25 @@ export default function PostList({
   filteredPosts,
   query,
   statusFilter,
+  deletingId,
   onQueryChange,
   onStatusChange,
   onClearFilters,
+  onCreate,
   onEdit,
   onDelete,
 }) {
   return (
-    <article className="rounded-3xl border border-white/10 bg-zinc-900 p-6 shadow-xl shadow-black/10">
-      <div className="flex items-end justify-between gap-4">
+    <article id="posts" className="scroll-mt-6 rounded-3xl border border-white/10 bg-zinc-900/80 p-5 shadow-xl shadow-black/10 sm:p-6">
+      <div className="flex items-start justify-between gap-4">
         <div>
-          <h2 className="text-lg font-semibold text-white">Your posts</h2>
+          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-blue-400">Content library</p>
+          <h2 className="mt-2 text-xl font-semibold text-white">Your posts</h2>
           <p className="mt-1 text-sm text-zinc-500">
-            Drafts and published entries from Backend-1.
+            Find, edit, and manage every Backend-1 entry.
           </p>
         </div>
-        <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-zinc-400">
+        <span className="shrink-0 rounded-full border border-white/10 bg-zinc-950/50 px-3 py-1.5 text-xs font-medium text-zinc-400">
           {filteredPosts.length} of {posts.length}
         </span>
       </div>
@@ -28,17 +32,23 @@ export default function PostList({
       {posts.length ? (
         <>
           <div className="mt-5 grid gap-3 sm:grid-cols-[1fr_150px]">
-            <label className="sr-only" htmlFor="post-search">
-              Search posts
-            </label>
-            <input
-              id="post-search"
-              type="search"
-              value={query}
-              onChange={(event) => onQueryChange(event.target.value)}
-              placeholder="Search title, content, or tags…"
-              className="w-full rounded-xl border border-white/10 bg-zinc-950 px-4 py-2.5 text-sm text-white outline-none placeholder:text-zinc-700 focus:border-blue-500"
-            />
+            <div className="relative">
+              <label className="sr-only" htmlFor="post-search">
+                Search posts
+              </label>
+              <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-zinc-600">
+                <circle cx="8.75" cy="8.75" r="5.25" stroke="currentColor" strokeWidth="1.6" />
+                <path d="m12.75 12.75 3.5 3.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+              </svg>
+              <input
+                id="post-search"
+                type="search"
+                value={query}
+                onChange={(event) => onQueryChange(event.target.value)}
+                placeholder="Search title, content, or tags…"
+                className="w-full rounded-xl border border-white/10 bg-zinc-950 py-2.5 pl-10 pr-4 text-sm text-white outline-none placeholder:text-zinc-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/15"
+              />
+            </div>
             <label className="sr-only" htmlFor="post-status-filter">
               Filter by status
             </label>
@@ -46,7 +56,7 @@ export default function PostList({
               id="post-status-filter"
               value={statusFilter}
               onChange={(event) => onStatusChange(event.target.value)}
-              className="rounded-xl border border-white/10 bg-zinc-950 px-4 py-2.5 text-sm text-white outline-none focus:border-blue-500"
+              className="rounded-xl border border-white/10 bg-zinc-950 px-4 py-2.5 text-sm text-white outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/15"
             >
               <option value="all">All statuses</option>
               <option value="published">Published</option>
@@ -59,7 +69,7 @@ export default function PostList({
               {filteredPosts.map((post) => (
                 <div
                   key={post._id}
-                  className="rounded-2xl border border-white/10 bg-zinc-950/60 p-4"
+                  className="group rounded-2xl border border-white/10 bg-zinc-950/60 p-4 transition hover:border-white/15 hover:bg-zinc-950"
                 >
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                     <div className="min-w-0">
@@ -77,12 +87,30 @@ export default function PostList({
                           {formatPostDate(post.publishedAt || post.createdAt)}
                         </span>
                       </div>
-                      <h3 className="mt-3 font-semibold text-white">{post.title}</h3>
+                      <h3 className="mt-3 font-semibold leading-6 text-white transition group-hover:text-blue-100">{post.title}</h3>
                       <p className="mt-2 line-clamp-2 text-sm leading-6 text-zinc-500">
                         {post.content}
                       </p>
+                      {post.tags?.length ? (
+                        <div className="mt-3 flex flex-wrap gap-1.5">
+                          {post.tags.slice(0, 4).map((tag) => (
+                            <span key={tag} className="rounded-md bg-white/5 px-2 py-1 text-[10px] font-medium text-zinc-500">
+                              #{tag}
+                            </span>
+                          ))}
+                        </div>
+                      ) : null}
                     </div>
-                    <div className="flex shrink-0 gap-2">
+                    <div className="flex shrink-0 flex-wrap gap-2">
+                      {post.status === "published" ? (
+                        <Link
+                          href={`/blogs/community/${post._id}`}
+                          aria-label={`View ${post.title}`}
+                          className="rounded-lg border border-white/10 px-3 py-2 text-xs font-semibold text-zinc-400 transition hover:border-emerald-500/40 hover:text-emerald-300"
+                        >
+                          View
+                        </Link>
+                      ) : null}
                       <button
                         type="button"
                         onClick={() => onEdit(post)}
@@ -93,9 +121,10 @@ export default function PostList({
                       <button
                         type="button"
                         onClick={() => onDelete(post)}
-                        className="rounded-lg border border-red-500/20 px-3 py-2 text-xs font-semibold text-red-300 transition hover:bg-red-500/10"
+                        disabled={deletingId === post._id}
+                        className="rounded-lg border border-red-500/20 px-3 py-2 text-xs font-semibold text-red-300 transition hover:bg-red-500/10 disabled:cursor-wait disabled:opacity-50"
                       >
-                        Delete
+                        {deletingId === post._id ? "Deleting…" : "Delete"}
                       </button>
                     </div>
                   </div>
@@ -120,10 +149,14 @@ export default function PostList({
         </>
       ) : (
         <div className="mt-6 rounded-2xl border border-dashed border-white/10 bg-zinc-950/40 px-6 py-12 text-center">
-          <h3 className="font-semibold text-white">No posts yet</h3>
+          <span className="mx-auto grid size-12 place-items-center rounded-2xl bg-blue-500/10 text-2xl text-blue-400" aria-hidden="true">+</span>
+          <h3 className="mt-4 font-semibold text-white">No posts yet</h3>
           <p className="mt-2 text-sm text-zinc-500">
             Use the editor to create your first Backend-1 post.
           </p>
+          <button type="button" onClick={onCreate} className="mt-5 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-blue-500">
+            Create your first post
+          </button>
         </div>
       )}
     </article>

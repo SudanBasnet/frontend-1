@@ -12,6 +12,17 @@ import {
 
 const readJson = (response) => response.json();
 
+async function requestPosts(signal) {
+  const response = await fetch("/api/blogposts?mine=true", { signal });
+  const data = await readJson(response);
+
+  if (!response.ok) {
+    throw new Error(data.message || "Unable to load your posts.");
+  }
+
+  return data.posts || [];
+}
+
 export default function useDashboard() {
   const router = useRouter();
   const [user, setUser] = useState(null);
@@ -20,6 +31,9 @@ export default function useDashboard() {
   const [editingId, setEditingId] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [deletingId, setDeletingId] = useState(null);
+  const [lastSyncedAt, setLastSyncedAt] = useState(null);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [query, setQuery] = useState("");
@@ -49,14 +63,12 @@ export default function useDashboard() {
 
         if (active) setUser(session.user);
 
-        const postsResponse = await fetch("/api/blogposts?mine=true");
-        const data = await readJson(postsResponse);
+        const nextPosts = await requestPosts();
 
-        if (!postsResponse.ok) {
-          throw new Error(data.message || "Unable to load your posts.");
+        if (active) {
+          setPosts(nextPosts);
+          setLastSyncedAt(new Date());
         }
-
-        if (active) setPosts(data.posts || []);
       } catch (loadError) {
         if (active) setError(loadError.message);
       } finally {
@@ -95,9 +107,39 @@ export default function useDashboard() {
     setEditor(emptyEditor);
   }
 
+  function startNewPost() {
+    resetEditor();
+    setMessage("");
+    setError("");
+    requestAnimationFrame(() => {
+      document.getElementById("post-title")?.focus();
+      document.getElementById("post-editor")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
+  }
+
   function clearFilters() {
     setQuery("");
     setStatusFilter("all");
+  }
+
+  async function refreshPosts() {
+    setIsRefreshing(true);
+    setMessage("");
+    setError("");
+
+    try {
+      const nextPosts = await requestPosts();
+      setPosts(nextPosts);
+      setLastSyncedAt(new Date());
+      setMessage("Workspace refreshed.");
+    } catch (refreshError) {
+      setError(refreshError.message);
+    } finally {
+      setIsRefreshing(false);
+    }
   }
 
   async function savePost(event) {
@@ -127,6 +169,7 @@ export default function useDashboard() {
           : [data.post, ...current],
       );
       setMessage(editingId ? "Post updated." : "Post created.");
+      setLastSyncedAt(new Date());
       resetEditor();
     } catch (saveError) {
       setError(saveError.message);
@@ -138,6 +181,7 @@ export default function useDashboard() {
   async function deletePost(post) {
     if (!window.confirm(`Delete “${post.title}”? This cannot be undone.`)) return;
 
+    setDeletingId(post._id);
     setMessage("");
     setError("");
 
@@ -153,30 +197,40 @@ export default function useDashboard() {
 
       setPosts((current) => current.filter((item) => item._id !== post._id));
       if (editingId === post._id) resetEditor();
+      setLastSyncedAt(new Date());
       setMessage("Post deleted.");
     } catch (deleteError) {
       setError(deleteError.message);
+    } finally {
+      setDeletingId(null);
     }
   }
 
   return {
     clearFilters,
+    deletingId,
     deletePost,
+    dismissError: () => setError(""),
+    dismissMessage: () => setMessage(""),
     editPost,
     editingId,
     editor,
     error,
     filteredPosts,
     isLoading,
+    isRefreshing,
     isSaving,
+    lastSyncedAt,
     message,
     posts,
     query,
+    refreshPosts,
     resetEditor,
     savePost,
     setError,
     setQuery,
     setStatusFilter,
+    startNewPost,
     stats,
     statusFilter,
     updateEditor,

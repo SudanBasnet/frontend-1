@@ -5,14 +5,15 @@ const navigationGroups = [
     label: "Workspace",
     items: [
       { href: "/dashboard", label: "Overview", icon: "overview", active: true },
-      { href: "/blogs", label: "Blogs", icon: "blogs" },
-      { href: "/portfolio", label: "Portfolio", icon: "portfolio" },
+      { href: "#posts", label: "Posts", icon: "blogs" },
+      { href: "#media", label: "Media", icon: "media" },
     ],
   },
   {
-    label: "Account",
+    label: "Website",
     items: [
-      { href: "/contact", label: "Messages", icon: "messages" },
+      { href: "/blogs", label: "Public blog", icon: "site" },
+      { href: "/portfolio", label: "Portfolio", icon: "portfolio" },
       { href: "/", label: "View site", icon: "site" },
     ],
   },
@@ -48,6 +49,13 @@ function NavigationIcon({ name }) {
         <path d="m7 8 5 4 5-4" />
       </>
     ),
+    media: (
+      <>
+        <rect x="3" y="4" width="18" height="16" rx="3" />
+        <circle cx="9" cy="10" r="2" />
+        <path d="m5.5 18 4.25-4.25 2.75 2.5 2.5-2.5L18.5 17" />
+      </>
+    ),
     site: (
       <>
         <circle cx="12" cy="12" r="9" />
@@ -72,9 +80,12 @@ function NavigationIcon({ name }) {
   );
 }
 
-export default function DashboardSidebar() {
+export default function DashboardSidebar({ user, postCount, onCreatePost }) {
+  const displayName = user?.name || "Your account";
+  const initial = displayName.slice(0, 1).toUpperCase();
+
   return (
-    <aside className="h-fit overflow-hidden rounded-3xl border border-white/10 bg-zinc-900 shadow-2xl shadow-black/20 lg:sticky lg:top-6">
+    <aside className="h-fit overflow-hidden rounded-3xl border border-white/10 bg-zinc-900/85 shadow-2xl shadow-black/20 backdrop-blur-xl lg:sticky lg:top-6">
       <div className="border-b border-white/10 p-5">
         <Link
           href="/dashboard"
@@ -90,6 +101,17 @@ export default function DashboardSidebar() {
             <span className="block text-xs text-zinc-500">Content workspace</span>
           </span>
         </Link>
+      </div>
+
+      <div className="px-4 pt-4">
+        <button
+          type="button"
+          onClick={onCreatePost}
+          className="flex w-full items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 text-sm font-bold text-zinc-950 transition hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
+        >
+          <span aria-hidden="true" className="text-lg leading-none">+</span>
+          New post
+        </button>
       </div>
 
       <nav className="space-y-5 p-4" aria-label="Dashboard navigation">
@@ -131,14 +153,14 @@ export default function DashboardSidebar() {
       <div className="border-t border-white/10 p-4">
         <div className="flex items-center gap-3 rounded-2xl bg-zinc-950/60 p-3">
           <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-zinc-800 text-xs font-bold text-zinc-300">
-            U
+            {initial}
           </span>
           <span className="min-w-0">
             <span className="block truncate text-sm font-medium text-zinc-200">
-              Your account
+              {displayName}
             </span>
             <span className="block truncate text-xs text-zinc-600">
-              Profile pending
+              {user?.email || `${postCount} ${postCount === 1 ? "post" : "posts"}`}
             </span>
           </span>
         </div>
