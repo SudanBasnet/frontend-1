@@ -9,7 +9,7 @@ author-owned content management, and Cloudinary image uploads.
 ## Highlights
 
 - Responsive portfolio with six data-driven case studies
-- Curated articles alongside live community posts from `Backend-1`
+- Curated articles alongside searchable live community posts from `Backend-1`
 - Searchable and sortable portfolio and article archives
 - Persistent light, dark, and system themes
 - Email/password authentication with access-token refresh
@@ -105,7 +105,7 @@ BACKEND_API_URL=http://localhost:8080
 | `/about` | Profile, capabilities, principles, and current focus |
 | `/portfolio` | Searchable portfolio archive |
 | `/portfolio/[slug]` | Data-driven project case study |
-| `/blogs` | Curated article archive and live community feed |
+| `/blogs` | Curated article archive with searchable, tag-filtered live posts |
 | `/blogs/[slug]` | Curated article detail |
 | `/blogs/community/[id]` | Published post loaded from `Backend-1` |
 | `/contact` | Presentation-only contact page |
@@ -122,6 +122,8 @@ BACKEND_API_URL=http://localhost:8080
 | `GET /api/auth/session` | `GET /api/v1/test1/token` | Authenticated |
 | `POST /api/auth/logout` | Clears frontend cookies | Authenticated |
 | `GET /api/blogposts` | `GET /api/v1/blogposts` | Public |
+| `GET /api/blogposts?q=&tag=` | `GET /api/v1/blogposts?q=&tag=` | Public |
+| `GET /api/blogposts/tags` | `GET /api/v1/blogposts/tags` | Public |
 | `GET /api/blogposts/[id]` | `GET /api/v1/blogposts/:id` | Public |
 | `GET /api/blogposts?mine=true` | `GET /api/v1/blogposts/mine` | Authenticated |
 | `POST /api/blogposts` | `POST /api/v1/blogposts` | Authenticated |

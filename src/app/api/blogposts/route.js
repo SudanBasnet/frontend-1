@@ -4,10 +4,22 @@ import { forwardBackendResponse } from "@/lib/routeResponse";
 
 export async function GET(request) {
   try {
-    const mine = new URL(request.url).searchParams.get("mine") === "true";
+    const searchParams = new URL(request.url).searchParams;
+    const mine = searchParams.get("mine") === "true";
+    const publicFilters = new URLSearchParams();
+
+    for (const key of ["q", "tag"]) {
+      for (const value of searchParams.getAll(key)) {
+        publicFilters.append(key, value);
+      }
+    }
+
+    const publicQuery = publicFilters.size
+      ? `?${publicFilters.toString()}`
+      : "";
     const response = mine
       ? await authenticatedBackendFetch("/api/v1/blogposts/mine")
-      : await backendFetch("/api/v1/blogposts");
+      : await backendFetch(`/api/v1/blogposts${publicQuery}`);
 
     return forwardBackendResponse(response);
   } catch (error) {
