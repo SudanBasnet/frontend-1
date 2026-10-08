@@ -10,6 +10,7 @@ author-owned content management, and Cloudinary image uploads.
 
 - Responsive portfolio with six data-driven case studies
 - Curated articles alongside searchable live community posts from `Backend-1`
+- Native article sharing with a copy-link fallback
 - Searchable and sortable portfolio and article archives
 - Persistent light, dark, and system themes
 - Email/password authentication with access-token refresh

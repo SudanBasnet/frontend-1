@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ArticleShare from "@/components/Blogs/ArticleShare";
 import { blogPosts, getBlogPost } from "@/data/blogPosts";
 import { siteSeed } from "@/data/siteSeed";
 
@@ -63,12 +64,15 @@ export default async function BlogPostPage({ params }) {
           <h1 className="mt-6 max-w-4xl text-4xl font-black leading-[1.04] tracking-[-0.045em] sm:text-6xl">{post.title}</h1>
           <p className="mt-7 max-w-3xl text-lg leading-8 text-zinc-600 sm:text-xl dark:text-zinc-300">{post.excerpt}</p>
 
-          <div className="mt-10 flex items-center gap-3 border-t border-zinc-200 pt-6 dark:border-zinc-800">
-            <span className="grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-blue-600 to-violet-600 text-xs font-black text-white">{siteSeed.profile.initials}</span>
-            <div>
-              <p className="text-sm font-bold">{siteSeed.profile.name}</p>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400">{siteSeed.profile.role}</p>
+          <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-zinc-200 pt-6 dark:border-zinc-800">
+            <div className="flex items-center gap-3">
+              <span className="grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-blue-600 to-violet-600 text-xs font-black text-white">{siteSeed.profile.initials}</span>
+              <div>
+                <p className="text-sm font-bold">{siteSeed.profile.name}</p>
+                <p className="text-xs text-zinc-500 dark:text-zinc-400">{siteSeed.profile.role}</p>
+              </div>
             </div>
+            <ArticleShare title={post.title} />
           </div>
         </div>
       </header>

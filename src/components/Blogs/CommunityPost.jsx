@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import ArticleShare from "@/components/Blogs/ArticleShare";
 
 function formatDate(value) {
   if (!value) return "Recently";
@@ -76,14 +77,17 @@ export default function CommunityPost({ id }) {
             ))}
           </div>
           <h1 className="mt-6 max-w-4xl text-4xl font-black leading-[1.04] tracking-[-0.045em] sm:text-6xl">{post.title}</h1>
-          <div className="mt-10 flex items-center gap-3 border-t border-zinc-200 pt-6 dark:border-zinc-800">
-            <span className="grid size-11 place-items-center rounded-full bg-gradient-to-br from-emerald-500 to-blue-600 text-sm font-black text-white">
-              {(post.author?.name || "A").slice(0, 1).toUpperCase()}
-            </span>
-            <div>
-              <p className="text-sm font-bold">{post.author?.name || "Frontend One author"}</p>
-              <time dateTime={post.publishedAt} className="text-xs text-zinc-500 dark:text-zinc-400">Published {formatDate(post.publishedAt)}</time>
+          <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-zinc-200 pt-6 dark:border-zinc-800">
+            <div className="flex items-center gap-3">
+              <span className="grid size-11 place-items-center rounded-full bg-gradient-to-br from-emerald-500 to-blue-600 text-sm font-black text-white">
+                {(post.author?.name || "A").slice(0, 1).toUpperCase()}
+              </span>
+              <div>
+                <p className="text-sm font-bold">{post.author?.name || "Frontend One author"}</p>
+                <time dateTime={post.publishedAt} className="text-xs text-zinc-500 dark:text-zinc-400">Published {formatDate(post.publishedAt)}</time>
+              </div>
             </div>
+            <ArticleShare title={post.title} />
           </div>
         </div>
       </header>
