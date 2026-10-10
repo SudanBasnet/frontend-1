@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ArticleProgress from "@/components/Blogs/ArticleProgress";
 import ArticleShare from "@/components/Blogs/ArticleShare";
 import { blogPosts, getBlogPost } from "@/data/blogPosts";
 import { siteSeed } from "@/data/siteSeed";
@@ -47,6 +48,7 @@ export default async function BlogPostPage({ params }) {
 
   return (
     <article className="bg-white text-zinc-950 dark:bg-zinc-950 dark:text-white">
+      <ArticleProgress />
       <header className="relative isolate overflow-hidden border-b border-zinc-200 dark:border-zinc-800">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_14%_15%,rgba(37,99,235,0.14),transparent_28%),radial-gradient(circle_at_88%_76%,rgba(124,58,237,0.11),transparent_25%)] dark:bg-[radial-gradient(circle_at_14%_15%,rgba(59,130,246,0.16),transparent_28%),radial-gradient(circle_at_88%_76%,rgba(139,92,246,0.14),transparent_25%)]" />
         <div className="mx-auto w-full max-w-4xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
