@@ -12,6 +12,7 @@ author-owned content management, and Cloudinary image uploads.
 - Curated articles alongside searchable live community posts from `Backend-1`
 - Native article sharing with a copy-link fallback
 - Reading progress across curated and live community articles
+- Browser-local reading list for curated and live community articles
 - Searchable and sortable portfolio and article archives
 - Persistent light, dark, and system themes
 - Email/password authentication with access-token refresh

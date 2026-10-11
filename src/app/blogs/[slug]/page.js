@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ArticleProgress from "@/components/Blogs/ArticleProgress";
+import ArticleSave from "@/components/Blogs/ArticleSave";
 import ArticleShare from "@/components/Blogs/ArticleShare";
 import { blogPosts, getBlogPost } from "@/data/blogPosts";
 import { siteSeed } from "@/data/siteSeed";
@@ -74,7 +75,14 @@ export default async function BlogPostPage({ params }) {
                 <p className="text-xs text-zinc-500 dark:text-zinc-400">{siteSeed.profile.role}</p>
               </div>
             </div>
-            <ArticleShare title={post.title} />
+            <div className="flex flex-wrap items-center gap-3">
+              <ArticleSave
+                href={`/blogs/${post.slug}`}
+                title={post.title}
+                source="Curated article"
+              />
+              <ArticleShare title={post.title} />
+            </div>
           </div>
         </div>
       </header>

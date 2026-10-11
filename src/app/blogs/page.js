@@ -4,6 +4,7 @@ import { blogPosts } from "@/data/blogPosts";
 import ArticleVisual from "@/components/Blogs/ArticleVisual";
 import BlogArchive from "@/components/Blogs/BlogArchive";
 import CommunityPosts from "@/components/Blogs/CommunityPosts";
+import ReadingList from "@/components/Blogs/ReadingList";
 
 const ArrowIcon = ({ className = "h-4 w-4" }) => (
   <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className={className}>
@@ -93,6 +94,8 @@ export default function BlogPage() {
           <BlogArchive posts={posts} />
         </div>
       </section>
+
+      <ReadingList />
 
       <CommunityPosts />
 

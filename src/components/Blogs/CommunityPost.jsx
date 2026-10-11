@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import ArticleProgress from "@/components/Blogs/ArticleProgress";
+import ArticleSave from "@/components/Blogs/ArticleSave";
 import ArticleShare from "@/components/Blogs/ArticleShare";
 
 function formatDate(value) {
@@ -89,7 +90,14 @@ export default function CommunityPost({ id }) {
                 <time dateTime={post.publishedAt} className="text-xs text-zinc-500 dark:text-zinc-400">Published {formatDate(post.publishedAt)}</time>
               </div>
             </div>
-            <ArticleShare title={post.title} />
+            <div className="flex flex-wrap items-center gap-3">
+              <ArticleSave
+                href={`/blogs/community/${post._id}`}
+                title={post.title}
+                source="Community post"
+              />
+              <ArticleShare title={post.title} />
+            </div>
           </div>
         </div>
       </header>
