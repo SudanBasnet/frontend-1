@@ -13,6 +13,7 @@ author-owned content management, and Cloudinary image uploads.
 - Native article sharing with a copy-link fallback
 - Reading progress across curated and live community articles
 - Reduced-motion-aware back-to-top navigation on article pages
+- Automatic reading-time estimates for live community posts
 - Browser-local reading list for curated and live community articles
 - Searchable and sortable portfolio and article archives
 - Persistent light, dark, and system themes

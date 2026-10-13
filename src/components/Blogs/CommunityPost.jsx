@@ -16,6 +16,14 @@ function formatDate(value) {
   }).format(new Date(value));
 }
 
+function estimateReadTime(content) {
+  const wordCount = typeof content === "string"
+    ? content.trim().split(/\s+/).filter(Boolean).length
+    : 0;
+
+  return `${Math.max(1, Math.ceil(wordCount / 225))} min read`;
+}
+
 export default function CommunityPost({ id }) {
   const [post, setPost] = useState(null);
   const [error, setError] = useState("");
@@ -87,7 +95,11 @@ export default function CommunityPost({ id }) {
               </span>
               <div>
                 <p className="text-sm font-bold">{post.author?.name || "Frontend One author"}</p>
-                <time dateTime={post.publishedAt} className="text-xs text-zinc-500 dark:text-zinc-400">Published {formatDate(post.publishedAt)}</time>
+                <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-500 dark:text-zinc-400">
+                  <time dateTime={post.publishedAt}>Published {formatDate(post.publishedAt)}</time>
+                  <span aria-hidden="true">·</span>
+                  <span>{estimateReadTime(post.content)}</span>
+                </div>
               </div>
             </div>
             <div className="flex flex-wrap items-center gap-3">
