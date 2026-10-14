@@ -11,6 +11,7 @@ author-owned content management, and Cloudinary image uploads.
 - Responsive portfolio with six data-driven case studies
 - Curated articles alongside searchable live community posts from `Backend-1`
 - Native article sharing with a copy-link fallback
+- Print-friendly output for curated and live community articles
 - Reading progress across curated and live community articles
 - Reduced-motion-aware back-to-top navigation on article pages
 - Automatic reading-time estimates for live community posts

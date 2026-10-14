@@ -68,7 +68,7 @@ export default function ArticleShare({ title }) {
   const confirmed = feedback === "Shared" || feedback === "Link copied";
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-3 print:hidden">
       <button
         type="button"
         onClick={shareArticle}

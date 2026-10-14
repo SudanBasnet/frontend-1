@@ -46,3 +46,35 @@ body {
   background: rgb(59 130 246 / 0.24);
   color: inherit;
 }
+
+@media print {
+  @page {
+    margin: 18mm;
+  }
+
+  html {
+    color-scheme: light;
+  }
+
+  body {
+    background: white !important;
+    color: #18181b !important;
+  }
+
+  article[data-printable-article],
+  article[data-printable-article] * {
+    background-color: transparent !important;
+    border-color: #d4d4d8 !important;
+    box-shadow: none !important;
+    color: #18181b !important;
+  }
+
+  article[data-printable-article] {
+    background: white !important;
+  }
+
+  article[data-printable-article] p {
+    orphans: 3;
+    widows: 3;
+  }
+}

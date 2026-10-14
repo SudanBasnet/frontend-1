@@ -54,7 +54,7 @@ export default function ArticleSave({ href, title, source }) {
   }
 
   return (
-    <div>
+    <div className="print:hidden">
       <button
         type="button"
         onClick={toggleSavedArticle}

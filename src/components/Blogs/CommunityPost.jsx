@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import ArticlePrint from "@/components/Blogs/ArticlePrint";
 import ArticleProgress from "@/components/Blogs/ArticleProgress";
 import ArticleSave from "@/components/Blogs/ArticleSave";
 import ArticleShare from "@/components/Blogs/ArticleShare";
@@ -73,10 +74,10 @@ export default function CommunityPost({ id }) {
   }
 
   return (
-    <article className="bg-white text-zinc-950 dark:bg-zinc-950 dark:text-white">
+    <article data-printable-article className="bg-white text-zinc-950 dark:bg-zinc-950 dark:text-white">
       <ArticleProgress />
       <header className="relative isolate overflow-hidden border-b border-zinc-200 dark:border-zinc-800">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_14%_15%,rgba(16,185,129,0.12),transparent_30%),radial-gradient(circle_at_88%_76%,rgba(37,99,235,0.12),transparent_27%)]" />
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_14%_15%,rgba(16,185,129,0.12),transparent_30%),radial-gradient(circle_at_88%_76%,rgba(37,99,235,0.12),transparent_27%)] print:hidden" />
         <div className="mx-auto w-full max-w-4xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
           <Link href="/blogs" className="text-sm font-bold text-zinc-500 transition hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400">
             &larr; All articles
@@ -109,6 +110,7 @@ export default function CommunityPost({ id }) {
                 source="Community post"
               />
               <ArticleShare title={post.title} />
+              <ArticlePrint />
             </div>
           </div>
         </div>

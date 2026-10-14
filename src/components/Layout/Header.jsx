@@ -6,7 +6,7 @@ import styles from "./LayoutChrome.module.css";
 
 export default function Header() {
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} print:hidden`}>
       <div className="mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
         <Link
           href="/"

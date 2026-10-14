@@ -93,7 +93,7 @@ export default function ArticleProgress() {
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={Math.round(progress)}
-        className="pointer-events-none fixed inset-x-0 top-0 z-50 h-1 bg-zinc-200/70 dark:bg-zinc-800/70"
+        className="pointer-events-none fixed inset-x-0 top-0 z-50 h-1 bg-zinc-200/70 print:hidden dark:bg-zinc-800/70"
       >
         <span
           className="block h-full origin-left bg-gradient-to-r from-blue-600 via-violet-600 to-fuchsia-500"
@@ -107,7 +107,7 @@ export default function ArticleProgress() {
         aria-label="Back to article top"
         aria-hidden={!showBackToTop}
         tabIndex={showBackToTop ? 0 : -1}
-        className={`fixed bottom-5 right-4 z-40 inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white/95 px-4 py-3 text-xs font-bold text-zinc-700 shadow-lg shadow-zinc-950/10 backdrop-blur transition duration-200 hover:border-blue-300 hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 sm:bottom-6 sm:right-6 dark:border-zinc-700 dark:bg-zinc-900/95 dark:text-zinc-200 dark:shadow-black/30 dark:hover:border-blue-700 dark:hover:text-blue-400 dark:focus-visible:ring-offset-zinc-950 ${
+        className={`fixed bottom-5 right-4 z-40 inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white/95 px-4 py-3 text-xs font-bold text-zinc-700 shadow-lg shadow-zinc-950/10 backdrop-blur transition duration-200 hover:border-blue-300 hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 print:hidden sm:bottom-6 sm:right-6 dark:border-zinc-700 dark:bg-zinc-900/95 dark:text-zinc-200 dark:shadow-black/30 dark:hover:border-blue-700 dark:hover:text-blue-400 dark:focus-visible:ring-offset-zinc-950 ${
           showBackToTop
             ? "translate-y-0 opacity-100"
             : "pointer-events-none translate-y-2 opacity-0"

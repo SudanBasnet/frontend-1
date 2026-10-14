@@ -3,7 +3,7 @@ import styles from "./LayoutChrome.module.css";
 
 export default function Footer() {
   return (
-    <footer className={styles.footer}>
+    <footer className={`${styles.footer} print:hidden`}>
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 py-6 text-sm text-zinc-600 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8 dark:text-zinc-400">
         <p>
           &copy; {new Date().getFullYear()} Frontend One. All rights reserved.

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ArticlePrint from "@/components/Blogs/ArticlePrint";
 import ArticleProgress from "@/components/Blogs/ArticleProgress";
 import ArticleSave from "@/components/Blogs/ArticleSave";
 import ArticleShare from "@/components/Blogs/ArticleShare";
@@ -48,10 +49,10 @@ export default async function BlogPostPage({ params }) {
   const nextPost = blogPosts[(currentIndex + 1) % blogPosts.length];
 
   return (
-    <article className="bg-white text-zinc-950 dark:bg-zinc-950 dark:text-white">
+    <article data-printable-article className="bg-white text-zinc-950 dark:bg-zinc-950 dark:text-white">
       <ArticleProgress />
       <header className="relative isolate overflow-hidden border-b border-zinc-200 dark:border-zinc-800">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_14%_15%,rgba(37,99,235,0.14),transparent_28%),radial-gradient(circle_at_88%_76%,rgba(124,58,237,0.11),transparent_25%)] dark:bg-[radial-gradient(circle_at_14%_15%,rgba(59,130,246,0.16),transparent_28%),radial-gradient(circle_at_88%_76%,rgba(139,92,246,0.14),transparent_25%)]" />
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_14%_15%,rgba(37,99,235,0.14),transparent_28%),radial-gradient(circle_at_88%_76%,rgba(124,58,237,0.11),transparent_25%)] print:hidden dark:bg-[radial-gradient(circle_at_14%_15%,rgba(59,130,246,0.16),transparent_28%),radial-gradient(circle_at_88%_76%,rgba(139,92,246,0.14),transparent_25%)]" />
         <div className="mx-auto w-full max-w-4xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
           <Link href="/blogs" className="inline-flex items-center gap-2 text-sm font-bold text-zinc-500 transition hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400">
             <ArrowIcon className="h-4 w-4 rotate-180" />
@@ -82,6 +83,7 @@ export default async function BlogPostPage({ params }) {
                 source="Curated article"
               />
               <ArticleShare title={post.title} />
+              <ArticlePrint />
             </div>
           </div>
         </div>
@@ -109,7 +111,7 @@ export default async function BlogPostPage({ params }) {
           <p className="mt-3 text-lg font-bold leading-8 text-zinc-900 dark:text-white">{post.takeaway}</p>
         </aside>
 
-        <div className="mt-14 border-t border-zinc-200 pt-10 dark:border-zinc-800">
+        <div className="mt-14 border-t border-zinc-200 pt-10 print:hidden dark:border-zinc-800">
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">Read next</p>
           <Link href={`/blogs/${nextPost.slug}`} className="group mt-4 flex items-start justify-between gap-6 rounded-2xl border border-zinc-200 p-6 transition hover:border-blue-300 hover:bg-zinc-50 dark:border-zinc-800 dark:hover:border-blue-800 dark:hover:bg-zinc-900/60">
             <div>

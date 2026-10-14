@@ -62,7 +62,7 @@ export default function FloatingNavigation() {
   const pathname = usePathname();
 
   return (
-    <nav className={styles.dock} aria-label="Floating navigation">
+    <nav className={`${styles.dock} print:hidden`} aria-label="Floating navigation">
       <ul className={styles.list}>
         {navigationLinks.map((link) => {
           const isActive =
