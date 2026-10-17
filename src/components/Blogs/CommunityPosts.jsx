@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import useCommunityPosts from "@/components/Blogs/useCommunityPosts";
 
 const SearchIcon = () => (
   <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className="size-5">
@@ -21,81 +21,18 @@ function formatDate(value) {
 }
 
 export default function CommunityPosts() {
-  const [posts, setPosts] = useState(null);
-  const [tags, setTags] = useState([]);
-  const [query, setQuery] = useState("");
-  const [selectedTag, setSelectedTag] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    async function loadTags() {
-      try {
-        const response = await fetch("/api/blogposts/tags", {
-          signal: controller.signal,
-        });
-        const data = await response.json();
-
-        if (response.ok) setTags(data.tags || []);
-      } catch (loadError) {
-        if (loadError.name !== "AbortError") setTags([]);
-      }
-    }
-
-    loadTags();
-    return () => controller.abort();
-  }, []);
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    async function loadPosts() {
-      setIsLoading(true);
-      setError("");
-
-      try {
-        const params = new URLSearchParams();
-        const normalizedQuery = query.trim();
-
-        if (normalizedQuery) params.set("q", normalizedQuery);
-        if (selectedTag) params.set("tag", selectedTag);
-
-        const response = await fetch(
-          `/api/blogposts${params.size ? `?${params.toString()}` : ""}`,
-          {
-            signal: controller.signal,
-          },
-        );
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data.message || "Unable to load live posts.");
-        }
-
-        setPosts(data.posts || []);
-      } catch (loadError) {
-        if (loadError.name !== "AbortError") setError(loadError.message);
-      } finally {
-        if (!controller.signal.aborted) setIsLoading(false);
-      }
-    }
-
-    const timeout = window.setTimeout(loadPosts, query ? 300 : 0);
-
-    return () => {
-      window.clearTimeout(timeout);
-      controller.abort();
-    };
-  }, [query, selectedTag]);
-
-  const hasFilters = query.trim() || selectedTag;
-
-  function clearFilters() {
-    setQuery("");
-    setSelectedTag("");
-  }
+  const {
+    posts,
+    tags,
+    query,
+    setQuery,
+    selectedTag,
+    setSelectedTag,
+    isLoading,
+    error,
+    hasFilters,
+    clearFilters,
+  } = useCommunityPosts();
 
   return (
     <section className="border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
