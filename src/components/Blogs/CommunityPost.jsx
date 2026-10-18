@@ -2,10 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import ArticlePrint from "@/components/Blogs/ArticlePrint";
+import ArticleActions from "@/components/Blogs/ArticleActions";
 import ArticleProgress from "@/components/Blogs/ArticleProgress";
-import ArticleSave from "@/components/Blogs/ArticleSave";
-import ArticleShare from "@/components/Blogs/ArticleShare";
 
 function formatDate(value) {
   if (!value) return "Recently";
@@ -103,15 +101,11 @@ export default function CommunityPost({ id }) {
                 </div>
               </div>
             </div>
-            <div className="flex flex-wrap items-center gap-3">
-              <ArticleSave
-                href={`/blogs/community/${post._id}`}
-                title={post.title}
-                source="Community post"
-              />
-              <ArticleShare title={post.title} />
-              <ArticlePrint />
-            </div>
+            <ArticleActions
+              href={`/blogs/community/${post._id}`}
+              title={post.title}
+              source="Community post"
+            />
           </div>
         </div>
       </header>
