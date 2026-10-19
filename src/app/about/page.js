@@ -1,21 +1,10 @@
 import Link from "next/link";
+import ArrowIcon from "@/components/Icons/ArrowIcon";
 import SectionHeading from "@/components/SectionHeading/SectionHeading";
 import { blogPosts } from "@/data/blogPosts";
 import { portfolioProjects } from "@/data/projects";
 import { siteSeed } from "@/data/siteSeed";
 import styles from "./about.module.css";
-
-const ArrowIcon = ({ className = "h-4 w-4" }) => (
-  <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className={className}>
-    <path
-      d="M4 10h12m-5-5 5 5-5 5"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
 
 const principles = [
   {

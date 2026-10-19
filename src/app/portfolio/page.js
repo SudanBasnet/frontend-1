@@ -1,6 +1,6 @@
 import Link from "next/link";
 import ContactCallout from "@/components/ContactCallout/ContactCallout";
-import { ArrowIcon } from "@/components/Portfolio/PortfolioIcons";
+import ArrowIcon from "@/components/Icons/ArrowIcon";
 import ProjectArtwork from "@/components/Portfolio/ProjectArtwork";
 import PortfolioArchive from "@/components/Portfolio/PortfolioArchive";
 import ProjectStack from "@/components/Portfolio/ProjectStack";

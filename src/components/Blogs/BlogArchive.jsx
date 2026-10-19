@@ -3,12 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import ArticleVisual from "@/components/Blogs/ArticleVisual";
-
-const ArrowIcon = () => (
-  <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className="h-4 w-4">
-    <path d="M4 10h12m-5-5 5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
+import ArrowIcon from "@/components/Icons/ArrowIcon";
 
 const SearchIcon = () => (
   <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className="h-5 w-5">

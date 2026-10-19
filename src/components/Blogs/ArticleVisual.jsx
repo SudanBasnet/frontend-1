@@ -1,3 +1,5 @@
+import ArrowIcon from "@/components/Icons/ArrowIcon";
+
 const accentStyles = {
   blue: "from-blue-600 to-indigo-500 text-blue-100",
   violet: "from-violet-600 to-fuchsia-500 text-violet-100",
@@ -6,18 +8,6 @@ const accentStyles = {
   cyan: "from-cyan-600 to-blue-500 text-cyan-50",
   rose: "from-rose-600 to-pink-500 text-rose-50",
 };
-
-const ArrowIcon = ({ className = "h-4 w-4" }) => (
-  <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className={className}>
-    <path
-      d="M4 10h12m-5-5 5 5-5 5"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
 
 export default function ArticleVisual({ post, featured = false }) {
   return (

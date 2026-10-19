@@ -2,20 +2,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ArticleActions from "@/components/Blogs/ArticleActions";
 import ArticleProgress from "@/components/Blogs/ArticleProgress";
+import ArrowIcon from "@/components/Icons/ArrowIcon";
 import { blogPosts, getBlogPost } from "@/data/blogPosts";
 import { siteSeed } from "@/data/siteSeed";
-
-const ArrowIcon = ({ className = "h-4 w-4" }) => (
-  <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className={className}>
-    <path
-      d="M4 10h12m-5-5 5 5-5 5"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
 
 export function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }));

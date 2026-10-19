@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ArrowIcon from "@/components/Icons/ArrowIcon";
 
 const variants = {
   blue: {
@@ -84,15 +85,7 @@ export default function ContactCallout({
           }`}
         >
           Start a conversation
-          <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className="h-4 w-4">
-            <path
-              d="M4 10h12m-5-5 5 5-5 5"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          <ArrowIcon />
         </Link>
       </div>
     </div>

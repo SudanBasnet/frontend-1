@@ -2,6 +2,7 @@ import Link from "next/link";
 import ContactCallout from "@/components/ContactCallout/ContactCallout";
 import HomePageExperience from "@/components/Home/HomePageExperience";
 import HomeHeroScene from "@/components/Home/HomeHeroScene";
+import ArrowIcon from "@/components/Icons/ArrowIcon";
 import FloatingPortfolioSpheres from "@/components/Portfolio/FloatingPortfolioSpheres";
 import { blogPosts } from "@/data/blogPosts";
 import { portfolioProjects } from "@/data/projects";
@@ -31,23 +32,6 @@ const stats = [
   { value: projectTimeline, label: "Project timeline" },
 ];
 const { profile, services, currentFocus } = siteSeed;
-
-const ArrowIcon = ({ className = "h-4 w-4" }) => (
-  <svg
-    aria-hidden="true"
-    viewBox="0 0 20 20"
-    fill="none"
-    className={className}
-  >
-    <path
-      d="M4 10h12m-5-5 5 5-5 5"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
 
 export const metadata = {
   title: "Home | Frontend One",

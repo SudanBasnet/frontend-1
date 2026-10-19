@@ -1,3 +1,5 @@
+import ArrowIcon from "@/components/Icons/ArrowIcon";
+
 const contactDetails = [
   {
     title: "Tell me about the idea",
@@ -15,23 +17,6 @@ const contactDetails = [
       "I will review the context and respond with clear questions and next steps.",
   },
 ];
-
-const ArrowIcon = () => (
-  <svg
-    aria-hidden="true"
-    viewBox="0 0 20 20"
-    fill="none"
-    className="h-4 w-4"
-  >
-    <path
-      d="M4 10h12m-5-5 5 5-5 5"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
 
 export const metadata = {
   title: "Contact | Frontend One",
