@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { SearchIcon } from "@/components/Portfolio/PortfolioIcons";
+import SearchIcon from "@/components/Icons/SearchIcon";
 import PortfolioProjectCard from "@/components/Portfolio/PortfolioProjectCard";
 
 const DEFAULT_YEAR = "All";
