@@ -7,20 +7,7 @@ import {
   subscribeToReadingList,
   writeReadingList,
 } from "@/components/Blogs/readingListStore";
-
-function BookmarkIcon({ saved }) {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 20 20" fill={saved ? "currentColor" : "none"} className="size-4">
-      <path
-        d="M5 3.5h10v13l-5-3-5 3v-13Z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
+import BookmarkIcon from "@/components/Icons/BookmarkIcon";
 
 export default function ArticleSave({ href, title, source }) {
   const readingList = useSyncExternalStore(
@@ -65,7 +52,7 @@ export default function ArticleSave({ href, title, source }) {
             : "border-zinc-200 bg-white/70 text-zinc-700 hover:border-blue-300 hover:text-blue-600 dark:border-zinc-700 dark:bg-zinc-900/70 dark:text-zinc-200 dark:hover:border-blue-700 dark:hover:text-blue-400"
         }`}
       >
-        <BookmarkIcon saved={isSaved} />
+        <BookmarkIcon filled={isSaved} />
         {isSaved ? "Saved" : "Save for later"}
       </button>
       <span className="sr-only" role="status" aria-live="polite">

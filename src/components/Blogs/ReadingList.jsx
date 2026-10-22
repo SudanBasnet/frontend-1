@@ -8,12 +8,7 @@ import {
   subscribeToReadingList,
   writeReadingList,
 } from "@/components/Blogs/readingListStore";
-
-const BookmarkIcon = () => (
-  <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor" className="size-5">
-    <path d="M5 3.5h10v13l-5-3-5 3v-13Z" />
-  </svg>
-);
+import BookmarkIcon from "@/components/Icons/BookmarkIcon";
 
 const CloseIcon = () => (
   <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className="size-4">
@@ -44,7 +39,7 @@ export default function ReadingList() {
         <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
           <div>
             <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
-              <BookmarkIcon />
+              <BookmarkIcon filled outlined={false} className="size-5" />
               <p className="text-xs font-bold uppercase tracking-[0.2em]">Saved for later</p>
             </div>
             <h2 className="mt-3 text-3xl font-black tracking-tight">Your reading list.</h2>
