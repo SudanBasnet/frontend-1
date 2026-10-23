@@ -7,6 +7,7 @@ import GalleryUploader from "@/components/Dashboard/GalleryUploader";
 import PostEditor from "@/components/Dashboard/PostEditor";
 import PostList from "@/components/Dashboard/PostList";
 import useDashboard from "@/components/Dashboard/useDashboard";
+import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 
 export default function Dashboard() {
   const dashboard = useDashboard();
@@ -23,7 +24,7 @@ export default function Dashboard() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(37,99,235,0.16),transparent_32%)]" />
         <div className="relative text-center">
           <div className="mx-auto grid size-14 place-items-center rounded-2xl border border-blue-500/20 bg-blue-500/10 shadow-2xl shadow-blue-950/40">
-            <div className="size-6 animate-spin rounded-full border-2 border-zinc-700 border-t-blue-400" />
+            <LoadingSpinner className="size-6 border-zinc-700 border-t-blue-400" />
           </div>
           <p className="mt-5 text-sm font-medium">Loading your Backend-1 workspace…</p>
           <p className="mt-1 text-xs text-zinc-600">Checking your session and content</p>

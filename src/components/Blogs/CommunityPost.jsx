@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import ArticleActions from "@/components/Blogs/ArticleActions";
 import ArticleProgress from "@/components/Blogs/ArticleProgress";
+import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 
 function formatDate(value) {
   if (!value) return "Recently";
@@ -66,7 +67,7 @@ export default function CommunityPost({ id }) {
   if (!post) {
     return (
       <section className="grid min-h-[60vh] place-items-center bg-white dark:bg-zinc-950">
-        <div className="size-10 animate-spin rounded-full border-2 border-zinc-300 border-t-blue-600 dark:border-zinc-700 dark:border-t-blue-400" />
+        <LoadingSpinner className="size-10 border-zinc-300 border-t-blue-600 dark:border-zinc-700 dark:border-t-blue-400" />
       </section>
     );
   }
