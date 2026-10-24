@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ArticleActions from "@/components/Blogs/ArticleActions";
 import ArticleProgress from "@/components/Blogs/ArticleProgress";
+import Eyebrow from "@/components/Eyebrow/Eyebrow";
 import ArrowIcon from "@/components/Icons/ArrowIcon";
 import { blogPosts, getBlogPost } from "@/data/blogPosts";
 import { siteSeed } from "@/data/siteSeed";
@@ -90,12 +91,12 @@ export default async function BlogPostPage({ params }) {
         </div>
 
         <aside className="mt-14 rounded-2xl border border-blue-200 bg-blue-50 p-6 sm:p-8 dark:border-blue-900 dark:bg-blue-950/40">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">The takeaway</p>
+          <Eyebrow>The takeaway</Eyebrow>
           <p className="mt-3 text-lg font-bold leading-8 text-zinc-900 dark:text-white">{post.takeaway}</p>
         </aside>
 
         <div className="mt-14 border-t border-zinc-200 pt-10 print:hidden dark:border-zinc-800">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">Read next</p>
+          <Eyebrow accent="muted">Read next</Eyebrow>
           <Link href={`/blogs/${nextPost.slug}`} className="group mt-4 flex items-start justify-between gap-6 rounded-2xl border border-zinc-200 p-6 transition hover:border-blue-300 hover:bg-zinc-50 dark:border-zinc-800 dark:hover:border-blue-800 dark:hover:bg-zinc-900/60">
             <div>
               <span className="text-xs font-semibold text-blue-600 dark:text-blue-400">{nextPost.category} · {nextPost.readTime}</span>

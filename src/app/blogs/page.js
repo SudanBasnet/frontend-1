@@ -5,6 +5,7 @@ import ArticleVisual from "@/components/Blogs/ArticleVisual";
 import BlogArchive from "@/components/Blogs/BlogArchive";
 import CommunityPosts from "@/components/Blogs/CommunityPosts";
 import ReadingList from "@/components/Blogs/ReadingList";
+import Eyebrow from "@/components/Eyebrow/Eyebrow";
 import ArrowIcon from "@/components/Icons/ArrowIcon";
 
 export const metadata = {
@@ -38,7 +39,7 @@ export default function BlogPage() {
       <section className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
         <div className="mb-7 flex items-center justify-between gap-4">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">Featured</p>
+            <Eyebrow>Featured</Eyebrow>
             <h2 className="mt-2 text-2xl font-black tracking-tight sm:text-3xl">Latest thinking</h2>
           </div>
           <span className="hidden text-sm text-zinc-500 sm:block dark:text-zinc-400">Updated twice a month</span>
@@ -74,7 +75,7 @@ export default function BlogPage() {
         <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
           <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">The archive</p>
+              <Eyebrow>The archive</Eyebrow>
               <h2 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">More notes from the journey.</h2>
             </div>
             <p className="text-sm text-zinc-500 dark:text-zinc-400">{blogPosts.length} articles and counting</p>

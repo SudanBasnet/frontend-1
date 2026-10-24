@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ContactCallout from "@/components/ContactCallout/ContactCallout";
+import Eyebrow from "@/components/Eyebrow/Eyebrow";
 import ArrowIcon from "@/components/Icons/ArrowIcon";
 import ProjectArtwork from "@/components/Portfolio/ProjectArtwork";
 import PortfolioArchive from "@/components/Portfolio/PortfolioArchive";
@@ -46,7 +47,7 @@ export default function PortfolioPage() {
       <section className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
         <div className="mb-7 flex items-end justify-between gap-6">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">Featured project</p>
+            <Eyebrow>Featured project</Eyebrow>
             <h2 className="mt-2 text-2xl font-black tracking-tight sm:text-3xl">Support work, made clear.</h2>
           </div>
           <span className="hidden text-sm text-zinc-500 sm:block dark:text-zinc-400">Full-stack · 2026</span>
@@ -68,7 +69,7 @@ export default function PortfolioPage() {
         <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
           <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">Project archive</p>
+              <Eyebrow>Project archive</Eyebrow>
               <h2 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">More things I&apos;ve made.</h2>
             </div>
             <p className="text-sm text-zinc-500 dark:text-zinc-400">Design · Development · Direction</p>
@@ -81,7 +82,7 @@ export default function PortfolioPage() {
       <section className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr]">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">How I work</p>
+            <Eyebrow>How I work</Eyebrow>
             <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">A practical path from ambiguity to useful.</h2>
           </div>
           <div className="divide-y divide-zinc-200 border-y border-zinc-200 dark:divide-zinc-800 dark:border-zinc-800">

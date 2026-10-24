@@ -8,6 +8,7 @@ import {
   subscribeToReadingList,
   writeReadingList,
 } from "@/components/Blogs/readingListStore";
+import Eyebrow from "@/components/Eyebrow/Eyebrow";
 import BookmarkIcon from "@/components/Icons/BookmarkIcon";
 
 const CloseIcon = () => (
@@ -40,7 +41,7 @@ export default function ReadingList() {
           <div>
             <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
               <BookmarkIcon filled outlined={false} className="size-5" />
-              <p className="text-xs font-bold uppercase tracking-[0.2em]">Saved for later</p>
+              <Eyebrow>Saved for later</Eyebrow>
             </div>
             <h2 className="mt-3 text-3xl font-black tracking-tight">Your reading list.</h2>
           </div>

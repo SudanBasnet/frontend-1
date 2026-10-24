@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Eyebrow from "@/components/Eyebrow/Eyebrow";
 import SearchIcon from "@/components/Icons/SearchIcon";
 import useCommunityPosts from "@/components/Blogs/useCommunityPosts";
 
@@ -38,9 +39,9 @@ export default function CommunityPosts() {
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-70" />
                 <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
               </span>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400">
+              <Eyebrow accent="emerald">
                 Live from Backend-1
-              </p>
+              </Eyebrow>
             </div>
             <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">
               Published through the dashboard.

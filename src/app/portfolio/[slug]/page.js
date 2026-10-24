@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import Eyebrow from "@/components/Eyebrow/Eyebrow";
 import ArrowIcon from "@/components/Icons/ArrowIcon";
 import ProjectArtwork from "@/components/Portfolio/ProjectArtwork";
 import ProjectStack from "@/components/Portfolio/ProjectStack";
@@ -42,7 +43,7 @@ export default async function ProjectPage({ params }) {
 
           <div className="mt-10 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">{project.category} · {project.year}</p>
+              <Eyebrow>{project.category} · {project.year}</Eyebrow>
               <h1 className="mt-4 text-5xl font-black leading-none tracking-[-0.055em] sm:text-6xl">{project.title}</h1>
               <p className="mt-6 text-lg leading-8 text-zinc-600 dark:text-zinc-300">{project.summary}</p>
               <ProjectStack
@@ -112,7 +113,7 @@ export default async function ProjectPage({ params }) {
         </section>
 
         <div className="mt-16 border-t border-zinc-200 pt-10 dark:border-zinc-800">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">Next project</p>
+          <Eyebrow accent="muted">Next project</Eyebrow>
           <Link href={`/portfolio/${nextProject.slug}`} className="group mt-4 flex items-start justify-between gap-6 rounded-2xl border border-zinc-200 p-6 transition hover:border-blue-300 hover:bg-zinc-50 dark:border-zinc-800 dark:hover:border-blue-800 dark:hover:bg-zinc-900/60">
             <div>
               <span className="text-xs font-semibold text-blue-600 dark:text-blue-400">{nextProject.category} · {nextProject.year}</span>

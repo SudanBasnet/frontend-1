@@ -7,6 +7,7 @@ import GalleryUploader from "@/components/Dashboard/GalleryUploader";
 import PostEditor from "@/components/Dashboard/PostEditor";
 import PostList from "@/components/Dashboard/PostList";
 import useDashboard from "@/components/Dashboard/useDashboard";
+import Eyebrow from "@/components/Eyebrow/Eyebrow";
 import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 
 export default function Dashboard() {
@@ -49,9 +50,9 @@ export default function Dashboard() {
             <div className="relative flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
               <div>
                 <div className="flex flex-wrap items-center gap-3">
-                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-400">
+                  <Eyebrow inverted>
                     Content command center
-                  </p>
+                  </Eyebrow>
                   <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-semibold ${dashboard.error ? "border-amber-500/20 bg-amber-500/10 text-amber-300" : "border-emerald-500/20 bg-emerald-500/10 text-emerald-300"}`}>
                     <span className={`size-1.5 rounded-full ${dashboard.error ? "bg-amber-400" : "bg-emerald-400"}`} aria-hidden="true" />
                     {dashboard.error ? "Workspace needs attention" : "Backend-1 connected"}

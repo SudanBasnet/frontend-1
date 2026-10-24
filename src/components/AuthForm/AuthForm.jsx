@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Eyebrow from "@/components/Eyebrow/Eyebrow";
 
 const inputClassName =
   "w-full rounded-xl border border-zinc-200 bg-white px-4 py-3 text-zinc-950 outline-none transition placeholder:text-zinc-400 hover:border-zinc-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 dark:border-white/10 dark:bg-zinc-950 dark:text-white dark:placeholder:text-zinc-600 dark:hover:border-white/20";
@@ -106,9 +107,7 @@ export default function AuthForm({
             </div>
 
             {eyebrow ? (
-              <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">
-                {eyebrow}
-              </p>
+              <Eyebrow className="mb-2">{eyebrow}</Eyebrow>
             ) : null}
 
             <h1 className="text-3xl font-black tracking-tight text-zinc-950 dark:text-white">

@@ -1,7 +1,4 @@
-const eyebrowColors = {
-  blue: "text-blue-600 dark:text-blue-400",
-  emerald: "text-emerald-600 dark:text-emerald-400",
-};
+import Eyebrow from "@/components/Eyebrow/Eyebrow";
 
 export default function SectionHeading({
   eyebrow,
@@ -10,14 +7,13 @@ export default function SectionHeading({
   inverted = false,
   titleClassName = "",
 }) {
-  const eyebrowColor = inverted ? "text-blue-400" : eyebrowColors[accent];
   const titleColor = inverted ? "text-white" : "";
 
   return (
     <>
-      <p className={`text-xs font-bold uppercase tracking-[0.2em] ${eyebrowColor}`}>
+      <Eyebrow accent={accent} inverted={inverted}>
         {eyebrow}
-      </p>
+      </Eyebrow>
       <h2
         className={`mt-3 text-3xl font-black tracking-tight sm:text-4xl ${titleColor} ${titleClassName}`.trim()}
       >

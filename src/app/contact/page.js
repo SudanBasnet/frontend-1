@@ -1,3 +1,4 @@
+import Eyebrow from "@/components/Eyebrow/Eyebrow";
 import ArrowIcon from "@/components/Icons/ArrowIcon";
 
 const contactDetails = [
@@ -73,9 +74,9 @@ export default function ContactPage() {
         <div className="rounded-[2rem] border border-zinc-200 bg-white/90 p-5 shadow-2xl shadow-zinc-900/10 backdrop-blur sm:p-8 dark:border-zinc-800 dark:bg-zinc-900/90 dark:shadow-black/30">
           <div className="flex flex-col gap-3 border-b border-zinc-200 pb-7 sm:flex-row sm:items-end sm:justify-between dark:border-zinc-800">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">
+              <Eyebrow>
                 Project enquiry
-              </p>
+              </Eyebrow>
               <h2 className="mt-2 text-2xl font-black tracking-tight sm:text-3xl">
                 What can I help with?
               </h2>
