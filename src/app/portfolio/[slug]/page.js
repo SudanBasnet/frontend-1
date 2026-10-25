@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import BackLink from "@/components/BackLink/BackLink";
 import Eyebrow from "@/components/Eyebrow/Eyebrow";
 import ArrowIcon from "@/components/Icons/ArrowIcon";
 import ProjectArtwork from "@/components/Portfolio/ProjectArtwork";
@@ -39,7 +40,7 @@ export default async function ProjectPage({ params }) {
       <header className="relative isolate overflow-hidden border-b border-zinc-200 dark:border-zinc-800">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_10%_18%,rgba(37,99,235,0.14),transparent_27%),radial-gradient(circle_at_90%_76%,rgba(124,58,237,0.12),transparent_28%)] dark:bg-[radial-gradient(circle_at_10%_18%,rgba(59,130,246,0.17),transparent_27%),radial-gradient(circle_at_90%_76%,rgba(139,92,246,0.14),transparent_28%)]" />
         <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
-          <Link href="/portfolio" className="inline-flex items-center gap-2 text-sm font-bold text-zinc-500 transition hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400"><ArrowIcon className="h-4 w-4 rotate-180" />All projects</Link>
+          <BackLink href="/portfolio">All projects</BackLink>
 
           <div className="mt-10 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
             <div>
