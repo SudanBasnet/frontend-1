@@ -1,6 +1,7 @@
 import Link from "next/link";
 import ArrowIcon from "@/components/Icons/ArrowIcon";
 import SectionHeading from "@/components/SectionHeading/SectionHeading";
+import SectionLink from "@/components/SectionLink/SectionLink";
 import { blogPosts } from "@/data/blogPosts";
 import { portfolioProjects } from "@/data/projects";
 import { siteSeed } from "@/data/siteSeed";
@@ -216,9 +217,7 @@ export default function AboutPage() {
               A practical path from ambiguity to something people can use.
             </SectionHeading>
           </div>
-          <Link href="/portfolio" className="inline-flex items-center gap-2 text-sm font-bold text-blue-600 hover:text-blue-500 dark:text-blue-400">
-            Explore the outcomes <ArrowIcon />
-          </Link>
+          <SectionLink href="/portfolio">Explore the outcomes</SectionLink>
         </div>
 
         <ol className={styles.rhythmList}>
@@ -269,9 +268,7 @@ export default function AboutPage() {
               The principles, applied to real product problems.
             </SectionHeading>
           </div>
-          <Link href="/portfolio" className="inline-flex items-center gap-2 text-sm font-bold text-blue-600 hover:text-blue-500 dark:text-blue-400">
-            All case studies <ArrowIcon />
-          </Link>
+          <SectionLink href="/portfolio">All case studies</SectionLink>
         </div>
 
         <div className="mt-10 grid gap-5 md:grid-cols-3">
