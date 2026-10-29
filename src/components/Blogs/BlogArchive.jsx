@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import ArchiveEmptyState from "@/components/ArchiveEmptyState/ArchiveEmptyState";
+import ArchiveSearchField from "@/components/ArchiveSearchField/ArchiveSearchField";
 import ArticleVisual from "@/components/Blogs/ArticleVisual";
 import ArrowIcon from "@/components/Icons/ArrowIcon";
-import SearchIcon from "@/components/Icons/SearchIcon";
 
 const readTimeInMinutes = (post) => Number.parseInt(post.readTime, 10);
 
@@ -49,21 +49,12 @@ export default function BlogArchive({ posts }) {
     <div className="mt-10">
       <div className="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm sm:p-5 dark:border-zinc-800 dark:bg-zinc-900">
         <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
-          <label className="block">
-            <span className="mb-2 block text-xs font-bold uppercase tracking-[0.16em] text-zinc-500 dark:text-zinc-400">
-              Search articles
-            </span>
-            <span className="relative block">
-              <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-zinc-400"><SearchIcon /></span>
-              <input
-                type="search"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Try React, accessibility, or APIs"
-                className="w-full rounded-xl border border-zinc-300 bg-zinc-50 py-3 pl-11 pr-4 text-sm text-zinc-950 outline-none transition placeholder:text-zinc-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-zinc-700 dark:bg-zinc-950 dark:text-white dark:focus:border-blue-400"
-              />
-            </span>
-          </label>
+          <ArchiveSearchField
+            label="Search articles"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Try React, accessibility, or APIs"
+          />
 
           <label className="block">
             <span className="mb-2 block text-xs font-bold uppercase tracking-[0.16em] text-zinc-500 dark:text-zinc-400">
